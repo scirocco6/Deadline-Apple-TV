@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		4F7F66DB1DCA6E36008D4269 /* Chalkduster.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4F7F66D91DCA6D9A008D4269 /* Chalkduster.ttf */; };
 		4FE796991DCA61ED00A32A37 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE796981DCA61ED00A32A37 /* AppDelegate.swift */; };
-		4FE7969B1DCA61ED00A32A37 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4FE7969A1DCA61ED00A32A37 /* GameScene.sks */; };
+		4FE7969B1DCA61ED00A32A37 /* TitleScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4FE7969A1DCA61ED00A32A37 /* TitleScene.sks */; };
 		4FE7969D1DCA61ED00A32A37 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4FE7969C1DCA61ED00A32A37 /* Actions.sks */; };
 		4FE7969F1DCA61ED00A32A37 /* Game.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FE7969E1DCA61ED00A32A37 /* Game.xcassets */; };
 		4FE796A11DCA61ED00A32A37 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE796A01DCA61ED00A32A37 /* GameScene.swift */; };
@@ -41,7 +41,7 @@
 		4F7F66D91DCA6D9A008D4269 /* Chalkduster.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Chalkduster.ttf; sourceTree = "<group>"; };
 		4FE796951DCA61ED00A32A37 /* Deadline.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Deadline.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FE796981DCA61ED00A32A37 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4FE7969A1DCA61ED00A32A37 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		4FE7969A1DCA61ED00A32A37 /* TitleScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TitleScene.sks; sourceTree = "<group>"; };
 		4FE7969C1DCA61ED00A32A37 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		4FE7969E1DCA61ED00A32A37 /* Game.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Game.xcassets; sourceTree = "<group>"; };
 		4FE796A01DCA61ED00A32A37 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -116,7 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				4FE796981DCA61ED00A32A37 /* AppDelegate.swift */,
-				4FE7969A1DCA61ED00A32A37 /* GameScene.sks */,
+				4FE7969A1DCA61ED00A32A37 /* TitleScene.sks */,
 				4FE7969C1DCA61ED00A32A37 /* Actions.sks */,
 				4FE7969E1DCA61ED00A32A37 /* Game.xcassets */,
 				4FE796A01DCA61ED00A32A37 /* GameScene.swift */,
@@ -257,7 +257,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F7F66DB1DCA6E36008D4269 /* Chalkduster.ttf in Resources */,
-				4FE7969B1DCA61ED00A32A37 /* GameScene.sks in Resources */,
+				4FE7969B1DCA61ED00A32A37 /* TitleScene.sks in Resources */,
 				4FE7969D1DCA61ED00A32A37 /* Actions.sks in Resources */,
 				4FE7969F1DCA61ED00A32A37 /* Game.xcassets in Resources */,
 				4FE796A61DCA61ED00A32A37 /* Main.storyboard in Resources */,
