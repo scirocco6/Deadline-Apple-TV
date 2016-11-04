@@ -18,6 +18,10 @@
 		4FE796A81DCA61ED00A32A37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FE796A71DCA61ED00A32A37 /* Assets.xcassets */; };
 		4FE796B31DCA61ED00A32A37 /* DeadlineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE796B21DCA61ED00A32A37 /* DeadlineTests.swift */; };
 		4FE796BE1DCA61ED00A32A37 /* DeadlineUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE796BD1DCA61ED00A32A37 /* DeadlineUITests.swift */; };
+		4FF7CBB61DCD3CF600515EB7 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4FF7CBB51DCD3CF600515EB7 /* GameScene.sks */; };
+		4FF7CBB81DCD3E8600515EB7 /* Ball.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF7CBB71DCD3E8600515EB7 /* Ball.swift */; };
+		4FF7CBBA1DCD3EA000515EB7 /* Brick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF7CBB91DCD3EA000515EB7 /* Brick.swift */; };
+		4FF7CBBC1DCD3EA900515EB7 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF7CBBB1DCD3EA900515EB7 /* Player.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +59,10 @@
 		4FE796B91DCA61ED00A32A37 /* DeadlineUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DeadlineUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FE796BD1DCA61ED00A32A37 /* DeadlineUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadlineUITests.swift; sourceTree = "<group>"; };
 		4FE796BF1DCA61ED00A32A37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4FF7CBB51DCD3CF600515EB7 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		4FF7CBB71DCD3E8600515EB7 /* Ball.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ball.swift; sourceTree = "<group>"; };
+		4FF7CBB91DCD3EA000515EB7 /* Brick.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brick.swift; sourceTree = "<group>"; };
+		4FF7CBBB1DCD3EA900515EB7 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,7 +123,11 @@
 		4FE796971DCA61ED00A32A37 /* Deadline */ = {
 			isa = PBXGroup;
 			children = (
+				4FF7CBB51DCD3CF600515EB7 /* GameScene.sks */,
 				4FE796981DCA61ED00A32A37 /* AppDelegate.swift */,
+				4FF7CBB71DCD3E8600515EB7 /* Ball.swift */,
+				4FF7CBB91DCD3EA000515EB7 /* Brick.swift */,
+				4FF7CBBB1DCD3EA900515EB7 /* Player.swift */,
 				4FE7969A1DCA61ED00A32A37 /* TitleScene.sks */,
 				4FE7969C1DCA61ED00A32A37 /* Actions.sks */,
 				4FE7969E1DCA61ED00A32A37 /* Game.xcassets */,
@@ -214,7 +226,7 @@
 				TargetAttributes = {
 					4FE796941DCA61EC00A32A37 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = SP5J495KSD;
+						DevelopmentTeam = 85JZA243EH;
 						ProvisioningStyle = Automatic;
 					};
 					4FE796AD1DCA61ED00A32A37 = {
@@ -260,6 +272,7 @@
 				4FE7969B1DCA61ED00A32A37 /* TitleScene.sks in Resources */,
 				4FE7969D1DCA61ED00A32A37 /* Actions.sks in Resources */,
 				4FE7969F1DCA61ED00A32A37 /* Game.xcassets in Resources */,
+				4FF7CBB61DCD3CF600515EB7 /* GameScene.sks in Resources */,
 				4FE796A61DCA61ED00A32A37 /* Main.storyboard in Resources */,
 				4FE796A81DCA61ED00A32A37 /* Assets.xcassets in Resources */,
 			);
@@ -286,8 +299,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FF7CBBA1DCD3EA000515EB7 /* Brick.swift in Sources */,
+				4FF7CBB81DCD3E8600515EB7 /* Ball.swift in Sources */,
 				4FE796A11DCA61ED00A32A37 /* GameScene.swift in Sources */,
 				4FE796A31DCA61ED00A32A37 /* GameViewController.swift in Sources */,
+				4FF7CBBC1DCD3EA900515EB7 /* Player.swift in Sources */,
 				4FE796991DCA61ED00A32A37 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -431,7 +447,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				DEVELOPMENT_TEAM = SP5J495KSD;
+				DEVELOPMENT_TEAM = 85JZA243EH;
 				INFOPLIST_FILE = Deadline/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dotSix.Deadline;
@@ -446,7 +462,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				DEVELOPMENT_TEAM = SP5J495KSD;
+				DEVELOPMENT_TEAM = 85JZA243EH;
 				INFOPLIST_FILE = Deadline/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dotSix.Deadline;
