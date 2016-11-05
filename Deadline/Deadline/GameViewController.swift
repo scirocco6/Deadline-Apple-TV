@@ -161,6 +161,18 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
         message.isHidden  = false
     }
 
+    func touchMoved(toPoint pos : CGPoint) {
+//        player.position = CGPoint(x: 150 ,y: (scene?.frame.minY)! + 45)
+//        player.position.x = pos.x
+        player.moveTo(pos)
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for t in touches {
+            self.touchMoved(toPoint: t.location(in: scene!))
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Release any cached data, images, etc that aren't in use.

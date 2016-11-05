@@ -9,9 +9,6 @@
 import SpriteKit
 
 class Player: SKSpriteNode {
-    var minX    : CGFloat = 0
-    var maxX    : CGFloat = 0
-    let y       : CGFloat = 50
     let image = "wooden_paddle"
     
     init() {
@@ -19,10 +16,7 @@ class Player: SKSpriteNode {
         super.init(texture: texture, color: UIColor.clear, size: texture.size())
         
         self.setScale(0.5)
-        
-        minX = self.size.width/2
-        maxX = 1024 - self.size.width/2
-        
+
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
         
         self.physicsBody!.friction       = 0.5
@@ -32,8 +26,11 @@ class Player: SKSpriteNode {
     }
 
     func moveTo(_ location: CGPoint) {
+        let offset = self.size.width / 2
+        let minX = (self.parent?.frame.minX)! + offset
+        let maxX = (self.parent?.frame.maxX)! - offset
+
         var location = location
-        location.y = y
         
         if location.x < minX {
             location.x = minX
@@ -44,7 +41,7 @@ class Player: SKSpriteNode {
             }
         }
         
-        self.position = location
+        self.position.x = location.x
     }
     
     // more shiny boilerplate

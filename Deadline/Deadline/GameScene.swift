@@ -13,4 +13,5 @@ public class GameScene: SKScene {
 
     var entities = [GKEntity]()
     var graphs = [String : GKGraph]()
+    
 }
