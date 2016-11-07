@@ -16,8 +16,6 @@ class Controller {
     var delegate: ControlDelegate?
     
     var controller: GCController?
-    var dx: Float = 0.0
-    var dy: Float = 0.0
     
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(Controller.handleControllerDidConnectNotification(_:)), name: NSNotification.Name.GCControllerDidConnect,    object: nil)
