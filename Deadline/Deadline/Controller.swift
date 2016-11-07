@@ -9,14 +9,9 @@
 import Foundation
 import GameController
 
-protocol ControlDelegate {}
-
-
 class Controller {
-    var delegate: ControlDelegate?
-    
     var controller: GCController?
-    
+
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(Controller.handleControllerDidConnectNotification(_:)), name: NSNotification.Name.GCControllerDidConnect,    object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(Controller.handleControllerDidDisconnectNotification(_:)), name: NSNotification.Name.GCControllerDidDisconnect, object: nil)
@@ -42,6 +37,8 @@ class Controller {
     }
 
     func somethingHappened(which: GCMicroGamepad, what: GCControllerElement) -> Void {
-        print(what.description)
+        if what is GCControllerButtonInput {
+            print(what.description)
+        }
     }
 }
