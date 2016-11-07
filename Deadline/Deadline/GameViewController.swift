@@ -176,8 +176,20 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
     }
     
     func controllerChangedHandler(which: GCMicroGamepad, what: GCControllerElement) -> () {
-        if what is GCControllerButtonInput {
-            print(what.description)
+        if let button = what as? GCControllerButtonInput {
+            if button.isPressed == false {
+                if (ball == nil) && (balls > 0) { // if no ball in play AND there are any left, launch one
+                    print("new ball launched!!@")
+                    message.isHidden = true
+                    balls -= 1
+                    ball = Ball()
+                    print("allocated")
+                    ball!.physicsBody!.categoryBitMask    = ballCategory
+                    ball!.physicsBody!.contactTestBitMask = playfieldCategory | playerCategory | brickCategory
+                    scene?.addChild(ball!)
+                    ball!.run(scaleToNormal)
+                }
+            }
         }
     }
     
