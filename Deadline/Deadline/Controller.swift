@@ -11,6 +11,11 @@ import GameController
 
 class Controller {
     var controller: GCController?
+    var valueChangedHandler: GameController.GCMicroGamepadValueChangedHandler? {
+        didSet {
+            controller?.microGamepad?.valueChangedHandler = valueChangedHandler
+        }
+    }
 
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(Controller.handleControllerDidConnectNotification(_:)), name: NSNotification.Name.GCControllerDidConnect,    object: nil)
@@ -24,7 +29,7 @@ class Controller {
         if controller != nil {
             print("Controller detected")
             controller!.playerIndex = GCControllerPlayerIndex.index1
-            controller!.microGamepad?.valueChangedHandler = somethingHappened
+            controller!.microGamepad?.valueChangedHandler = valueChangedHandler
         }
     }
     
@@ -33,12 +38,6 @@ class Controller {
         
         if disconnectedGameController == controller {
             controller = nil
-        }
-    }
-
-    func somethingHappened(which: GCMicroGamepad, what: GCControllerElement) -> Void {
-        if what is GCControllerButtonInput {
-            print(what.description)
         }
     }
 }

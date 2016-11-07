@@ -260,7 +260,7 @@
 				TargetAttributes = {
 					4FE796941DCA61EC00A32A37 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = SP5J495KSD;
+						DevelopmentTeam = 85JZA243EH;
 						ProvisioningStyle = Automatic;
 					};
 					4FE796AD1DCA61ED00A32A37 = {
@@ -482,7 +482,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				DEVELOPMENT_TEAM = SP5J495KSD;
+				DEVELOPMENT_TEAM = 85JZA243EH;
 				INFOPLIST_FILE = Deadline/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dotSix.Deadline;
@@ -497,7 +497,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				DEVELOPMENT_TEAM = SP5J495KSD;
+				DEVELOPMENT_TEAM = 85JZA243EH;
 				INFOPLIST_FILE = Deadline/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dotSix.Deadline;

@@ -9,6 +9,7 @@
 import UIKit
 import SpriteKit
 import GameplayKit
+import GameController
 
 class GameViewController: UIViewController, SKPhysicsContactDelegate {
     var score      = 0
@@ -105,6 +106,7 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
         wallLeft.position = CGPoint(x:(scene?.frame.maxX)! - 30, y: (scene?.frame.minY)! + 5)
         scene?.addChild(wallLeft)
         
+        controller.valueChangedHandler = controllerChangedHandler
         newGame()
     }
     
@@ -170,6 +172,12 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches {
             self.touchMoved(toPoint: t.location(in: scene!))
+        }
+    }
+    
+    func controllerChangedHandler(which: GCMicroGamepad, what: GCControllerElement) -> () {
+        if what is GCControllerButtonInput {
+            print(what.description)
         }
     }
     
