@@ -34,6 +34,8 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
     let scaleToNormal  = SKAction.scale(to: 0.5,   duration: 0.5)
     let scaleToNothing = SKAction.scale(to: 0.001, duration: 0.2)
     
+    var controller = Controller()
+
     var gkScene: GKScene?
     var scene: GameScene?
     var physicsWorld: SKPhysicsWorld?
