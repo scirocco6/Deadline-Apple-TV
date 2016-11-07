@@ -92,19 +92,57 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F042DF31DD12FBE00C6892F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4FF7CBB71DCD3E8600515EB7 /* Ball.swift */,
+				4FF7CBB91DCD3EA000515EB7 /* Brick.swift */,
+				4FF7CBBB1DCD3EA900515EB7 /* Player.swift */,
+				4FAFFDA91DD126880010B471 /* Controller.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		4F042DF41DD12FC600C6892F /* Controlers */ = {
+			isa = PBXGroup;
+			children = (
+				4FE796A21DCA61ED00A32A37 /* GameViewController.swift */,
+			);
+			name = Controlers;
+			sourceTree = "<group>";
+		};
+		4F042DF51DD12FCF00C6892F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4FF7CBB51DCD3CF600515EB7 /* GameScene.sks */,
+				4FE796A01DCA61ED00A32A37 /* GameScene.swift */,
+				4FE7969A1DCA61ED00A32A37 /* TitleScene.sks */,
+				4FE7969C1DCA61ED00A32A37 /* Actions.sks */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		4F042DF61DD1303100C6892F /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				4F7F66DA1DCA6DA9008D4269 /* Fonts */,
+				4FE796A71DCA61ED00A32A37 /* Assets.xcassets */,
+				4FE7969E1DCA61ED00A32A37 /* Game.xcassets */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
 		4F7F66DA1DCA6DA9008D4269 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
 				4F7F66D91DCA6D9A008D4269 /* Chalkduster.ttf */,
 			);
 			name = Fonts;
-			path = Deadline;
 			sourceTree = "<group>";
 		};
 		4FE7968C1DCA61EC00A32A37 = {
 			isa = PBXGroup;
 			children = (
-				4F7F66DA1DCA6DA9008D4269 /* Fonts */,
 				4FE796971DCA61ED00A32A37 /* Deadline */,
 				4FE796B11DCA61ED00A32A37 /* DeadlineTests */,
 				4FE796BC1DCA61ED00A32A37 /* DeadlineUITests */,
@@ -125,20 +163,13 @@
 		4FE796971DCA61ED00A32A37 /* Deadline */ = {
 			isa = PBXGroup;
 			children = (
-				4FAFFDA91DD126880010B471 /* Controller.swift */,
-				4FF7CBB51DCD3CF600515EB7 /* GameScene.sks */,
-				4FE796981DCA61ED00A32A37 /* AppDelegate.swift */,
-				4FF7CBB71DCD3E8600515EB7 /* Ball.swift */,
-				4FF7CBB91DCD3EA000515EB7 /* Brick.swift */,
-				4FF7CBBB1DCD3EA900515EB7 /* Player.swift */,
-				4FE7969A1DCA61ED00A32A37 /* TitleScene.sks */,
-				4FE7969C1DCA61ED00A32A37 /* Actions.sks */,
-				4FE7969E1DCA61ED00A32A37 /* Game.xcassets */,
-				4FE796A01DCA61ED00A32A37 /* GameScene.swift */,
-				4FE796A21DCA61ED00A32A37 /* GameViewController.swift */,
-				4FE796A41DCA61ED00A32A37 /* Main.storyboard */,
-				4FE796A71DCA61ED00A32A37 /* Assets.xcassets */,
 				4FE796A91DCA61ED00A32A37 /* Info.plist */,
+				4FE796981DCA61ED00A32A37 /* AppDelegate.swift */,
+				4F042DF51DD12FCF00C6892F /* Views */,
+				4F042DF41DD12FC600C6892F /* Controlers */,
+				4F042DF31DD12FBE00C6892F /* Models */,
+				4FE796A41DCA61ED00A32A37 /* Main.storyboard */,
+				4F042DF61DD1303100C6892F /* Assets */,
 			);
 			path = Deadline;
 			sourceTree = "<group>";
