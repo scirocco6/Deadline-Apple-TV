@@ -164,8 +164,6 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
     }
 
     func touchMoved(toPoint pos : CGPoint) {
-//        player.position = CGPoint(x: 150 ,y: (scene?.frame.minY)! + 45)
-//        player.position.x = pos.x
         player.moveTo(pos)
     }
     
