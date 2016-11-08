@@ -39,7 +39,6 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
 
     var gkScene: GKScene?
     var scene: GameScene?
-    var physicsWorld: SKPhysicsWorld?
     var physicsBody: SKPhysicsBody?
     
     override func viewDidLoad() {
@@ -52,8 +51,6 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
             // Get the SKScene from the loaded GKScene
             scene = gkScene?.rootNode as! GameScene?
             if scene != nil {
-                physicsWorld = scene?.physicsWorld
-
                 // Copy gameplay related content over to the scene
                 scene?.entities = (gkScene?.entities)!
                 scene?.graphs = (gkScene?.graphs)!
@@ -77,11 +74,12 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
     override func viewDidAppear(_ animated: Bool) {
         // playfield
 
-        physicsWorld?.contactDelegate = self
+        scene?.physicsWorld.contactDelegate = self
         
         physicsBody                  = SKPhysicsBody(edgeLoopFrom: (scene?.frame)!)
         physicsBody!.friction        = 0.0
         physicsBody!.categoryBitMask = playfieldCategory
+        scene?.physicsBody = physicsBody
         
         message.text     = "Ready Player One"
         message.fontSize = 65
@@ -165,6 +163,54 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
         message.isHidden  = false
     }
 
+    // collision resolution
+    func didBegin(_ contact: SKPhysicsContact) {
+        let all = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+        
+        switch all {
+        case ballHitPlayfield:
+            if ball!.shouldDie() {
+                ball!.run(scaleToNothing, completion: {self.die()})
+            }
+            else {
+                ball?.kick()
+            }
+            
+        case ballHitBrick:
+            let brick = contact.bodyA.categoryBitMask == brickCategory ? contact.bodyA : contact.bodyB
+            brick.affectedByGravity = true
+            ball?.kick()
+            print("CRASH!")
+            
+        case brickHitPlayfield:
+            let pBody = contact.bodyA.categoryBitMask == brickCategory ? contact.bodyA : contact.bodyB
+            let brick = pBody.node! as! Brick
+
+            if brick.position.y <= brick.parent!.frame.minY + brick.size.width / 2  {
+                score += brick.score()
+                scoreBoard.text = "\(score)"
+                
+                pBody.isDynamic = false // dead brick can't collide or die again
+                brick.run(scaleToNothing, completion: {self.brickDie(brick)})
+            }
+            
+        default:
+            ball?.kick()
+            print("...ayup")
+        }
+    }
+    
+    // death of a player
+    func die() {
+        ball!.removeFromParent()
+        ball = nil
+        print("BOOM!!")
+        if balls == 0 {
+            message.text = "Game Over"
+        }
+        message.isHidden = false
+    }
+    
     func touchMoved(toPoint pos : CGPoint) {
         player.moveTo(pos)
     }
@@ -178,16 +224,21 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
     func controllerChangedHandler(which: GCMicroGamepad, what: GCControllerElement) -> () {
         if let button = what as? GCControllerButtonInput {
             if button.isPressed == false {
-                if (ball == nil) && (balls > 0) { // if no ball in play AND there are any left, launch one
-                    print("new ball launched!!@")
-                    message.isHidden = true
-                    balls -= 1
-                    if scene != nil {
-                        ball = Ball(scene: scene!)
+                if (ball == nil) {
+                    if (balls > 0) { // if no ball in play AND there are any left, launch one
+                        print("new ball launched!!@")
+                        message.isHidden = true
+                        balls -= 1
+                        if scene != nil {
+                            ball = Ball(scene: scene!)
+                        }
+                        ball?.physicsBody!.categoryBitMask    = ballCategory
+                        ball?.physicsBody!.contactTestBitMask = playfieldCategory | playerCategory | brickCategory
+                        ball?.run(scaleToNormal)
                     }
-                    ball?.physicsBody!.categoryBitMask    = ballCategory
-                    ball?.physicsBody!.contactTestBitMask = playfieldCategory | playerCategory | brickCategory
-                    ball?.run(scaleToNormal)
+                    else {
+                        newGame()
+                    }
                 }
             }
         }

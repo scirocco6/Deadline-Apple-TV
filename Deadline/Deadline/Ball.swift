@@ -19,7 +19,6 @@ class Ball: SKSpriteNode {
     let pulseDown       = SKAction.scale(to: 0.5,   duration: 0.1)
   
     let image           = "glowing_ball"
-    let deadline : CGFloat = 50
     
     init(scene: SKScene) {
         let texture = SKTexture(imageNamed: image)
@@ -86,7 +85,7 @@ class Ball: SKSpriteNode {
     }
     
     func shouldDie() -> Bool {
-        if self.position.y < deadline {
+        if self.position.y <= self.parent!.frame.minY + self.size.width / 2 {
             return true
         }
         else {
