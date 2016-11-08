@@ -88,7 +88,7 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
         
         scoreBoard.text     = ""
         scoreBoard.fontSize = 40
-        scoreBoard.position = CGPoint(x: (scene?.frame.minX)! + 70, y: (scene?.frame.minY)! + 5)
+        scoreBoard.position = CGPoint(x: (scene?.frame.minX)! + 45, y: (scene?.frame.minY)! + 5)
         scoreBoard.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         scene?.addChild(scoreBoard)
 
@@ -101,7 +101,7 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
         // wall
         wallLeft.text = ""
         wallLeft.fontSize = 40
-        wallLeft.position = CGPoint(x:(scene?.frame.maxX)! - 30, y: (scene?.frame.minY)! + 5)
+        wallLeft.position = CGPoint(x:(scene?.frame.maxX)! - 45, y: (scene?.frame.minY)! + 5)
         scene?.addChild(wallLeft)
         
         controller.valueChangedHandler = controllerChangedHandler
@@ -186,7 +186,7 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
             let pBody = contact.bodyA.categoryBitMask == brickCategory ? contact.bodyA : contact.bodyB
             let brick = pBody.node! as! Brick
 
-            if brick.position.y <= brick.parent!.frame.minY + brick.size.width / 2  {
+            if brick.position.y <= brick.parent!.frame.minY + brick.size.width / 2 + 10 {
                 score += brick.score()
                 scoreBoard.text = "\(score)"
                 

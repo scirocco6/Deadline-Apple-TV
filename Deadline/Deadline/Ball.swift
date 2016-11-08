@@ -85,7 +85,7 @@ class Ball: SKSpriteNode {
     }
     
     func shouldDie() -> Bool {
-        if self.position.y <= self.parent!.frame.minY + self.size.width / 2 {
+        if self.position.y <= self.parent!.frame.minY + self.size.width / 2 + 5 {
             return true
         }
         else {
