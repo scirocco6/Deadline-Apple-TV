@@ -21,19 +21,20 @@ class Ball: SKSpriteNode {
     let image           = "glowing_ball"
     let deadline : CGFloat = 50
     
-    init() {
+    init(scene: SKScene) {
         let texture = SKTexture(imageNamed: image)
         super.init(texture: texture, color: UIColor.clear, size: texture.size())
 
         self.setScale(0.5)
         
-        minX = self.size.width/2
-        maxX = 1024 - self.size.width/2
+        let offset = self.size.width / 2
+        minX = scene.frame.minX + offset
+        maxX = scene.frame.maxX - offset
 
-        let x  = CGFloat(arc4random_uniform(UInt32(maxX - (minX * 2))) + UInt32(minX))
+        let x  = CGFloat(arc4random_uniform(UInt32(maxX - minX))) + CGFloat(minX)
         let dx = CGFloat(arc4random_uniform(400)) - 200
     
-        self.position = CGPoint(x: x, y: 400)
+        self.position = CGPoint(x: x, y: 0)
         
         self.physicsBody = SKPhysicsBody(circleOfRadius:self.size.width/2 - 3)
         self.physicsBody!.usesPreciseCollisionDetection = true
@@ -43,12 +44,14 @@ class Ball: SKSpriteNode {
         self.physicsBody!.linearDamping      = 0.0
         self.physicsBody!.angularDamping     = 0
         
-        self.physicsBody!.isDynamic            = true
+        self.physicsBody!.isDynamic          = true
         self.physicsBody!.affectedByGravity  = false
         self.physicsBody!.velocity           = CGVector(dx: dx, dy: -300)
         
         self.physicsBody!.restitution        = 1.05 // gain a little speed every hit
         self.setScale(0.001)
+        
+        scene.addChild(self)
     }
     
     func kick() {

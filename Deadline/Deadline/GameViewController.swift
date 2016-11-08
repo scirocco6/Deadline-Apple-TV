@@ -182,12 +182,12 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
                     print("new ball launched!!@")
                     message.isHidden = true
                     balls -= 1
-                    ball = Ball()
-                    print("allocated")
-                    ball!.physicsBody!.categoryBitMask    = ballCategory
-                    ball!.physicsBody!.contactTestBitMask = playfieldCategory | playerCategory | brickCategory
-                    scene?.addChild(ball!)
-                    ball!.run(scaleToNormal)
+                    if scene != nil {
+                        ball = Ball(scene: scene!)
+                    }
+                    ball?.physicsBody!.categoryBitMask    = ballCategory
+                    ball?.physicsBody!.contactTestBitMask = playfieldCategory | playerCategory | brickCategory
+                    ball?.run(scaleToNormal)
                 }
             }
         }
