@@ -9,11 +9,11 @@
 import SpriteKit
 
 class Brick: SKSpriteNode {
-    let image = "rainbow_brick"
+    let agTexture = SKTexture(imageNamed: "rainbow_brick")
+    let fallingTexture = SKTexture(imageNamed: "heavy_brick")
     
     init(x: Int, y: Int) {
-        let texture = SKTexture(imageNamed: image)
-        super.init(texture: texture, color: UIColor.clear, size: texture.size())
+        super.init(texture: agTexture, color: UIColor.clear, size: agTexture.size())
         self.physicsBody = SKPhysicsBody(rectangleOf: self.size)
         
         self.physicsBody!.isDynamic = true
@@ -21,6 +21,11 @@ class Brick: SKSpriteNode {
         self.physicsBody!.usesPreciseCollisionDetection = true
         
         self.position = CGPoint(x: x, y: y)
+    }
+    
+    func removeAG() {
+        self.physicsBody?.affectedByGravity = true
+        self.texture = fallingTexture
     }
     
     // the faster the brick was moving the more points!!@

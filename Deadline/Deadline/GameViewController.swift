@@ -27,10 +27,13 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
     let ballCategory      = UInt32(0x01 << 1)
     let playerCategory    = UInt32(0x01 << 2)
     let brickCategory     = UInt32(0x01 << 3)
+    let deadlineCategory  = UInt32(0x01 << 4)
     
     lazy var ballHitPlayfield  : UInt32 = self.playfieldCategory | self.ballCategory
     lazy var ballHitBrick      : UInt32 = self.ballCategory      | self.brickCategory
-    lazy var brickHitPlayfield : UInt32 = self.playfieldCategory | self.brickCategory
+//    lazy var brickHitPlayfield : UInt32 = self.playfieldCategory | self.brickCategory
+    lazy var ballHitDeadline   : UInt32 = self.deadlineCategory  | self.ballCategory
+    lazy var brickHitDeadline  : UInt32 = self.deadlineCategory  | self.brickCategory
     
     let scaleToNormal  = SKAction.scale(to: 0.5,   duration: 0.5)
     let scaleToNothing = SKAction.scale(to: 0.001, duration: 0.2)
@@ -88,7 +91,7 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
         
         scoreBoard.text     = ""
         scoreBoard.fontSize = 40
-        scoreBoard.position = CGPoint(x: (scene?.frame.minX)! + 45, y: (scene?.frame.minY)! + 5)
+        scoreBoard.position = CGPoint(x: (scene?.frame.minX)! + 45, y: (scene?.frame.minY)! + 7)
         scoreBoard.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         scene?.addChild(scoreBoard)
 
@@ -101,8 +104,16 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
         // wall
         wallLeft.text = ""
         wallLeft.fontSize = 40
-        wallLeft.position = CGPoint(x:(scene?.frame.maxX)! - 45, y: (scene?.frame.minY)! + 5)
+        wallLeft.position = CGPoint(x:(scene?.frame.maxX)! - 45, y: (scene?.frame.minY)! + 7)
         scene?.addChild(wallLeft)
+        
+        // deadline
+        let deadline = SKShapeNode(rect: CGRect(x: (scene?.frame.minX)!, y: (scene?.frame.minY)!, width: (scene?.frame.maxX)! - (scene?.frame.minX)!, height: 2))
+        deadline.fillColor = UIColor.cyan
+        deadline.strokeColor = UIColor.red
+        deadline.physicsBody = SKPhysicsBody(edgeLoopFrom: deadline.frame)
+        deadline.physicsBody?.categoryBitMask = deadlineCategory
+        scene?.addChild(deadline)
         
         controller.valueChangedHandler = controllerChangedHandler
         newGame()
@@ -131,7 +142,8 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
                 wall[brick] = true
                 
                 brick.physicsBody!.categoryBitMask    = brickCategory
-                brick.physicsBody!.contactTestBitMask = playfieldCategory
+                brick.physicsBody!.contactTestBitMask = deadlineCategory
+
                 scene?.addChild(brick)
             }
         }
@@ -169,30 +181,26 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
         
         switch all {
         case ballHitPlayfield:
-            if ball!.shouldDie() {
-                ball!.run(scaleToNothing, completion: {self.die()})
-            }
-            else {
-                ball?.kick()
-            }
+            ball?.kick()
+            
+        case ballHitDeadline:
+            ball?.run(scaleToNothing, completion: {self.die()})
             
         case ballHitBrick:
             let brick = contact.bodyA.categoryBitMask == brickCategory ? contact.bodyA : contact.bodyB
-            brick.affectedByGravity = true
+            (brick.node as! Brick).removeAG()
             ball?.kick()
             print("CRASH!")
             
-        case brickHitPlayfield:
+        case brickHitDeadline:
             let pBody = contact.bodyA.categoryBitMask == brickCategory ? contact.bodyA : contact.bodyB
             let brick = pBody.node! as! Brick
-
-            if brick.position.y <= brick.parent!.frame.minY + brick.size.width / 2 + 10 {
-                score += brick.score()
-                scoreBoard.text = "\(score)"
-                
-                pBody.isDynamic = false // dead brick can't collide or die again
-                brick.run(scaleToNothing, completion: {self.brickDie(brick)})
-            }
+            
+            score += brick.score()
+            scoreBoard.text = "\(score)"
+            
+            pBody.isDynamic = false // dead brick can't collide or die again
+            brick.run(scaleToNothing, completion: {self.brickDie(brick)})
             
         default:
             ball?.kick()
@@ -202,7 +210,7 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
     
     // death of a player
     func die() {
-        ball!.removeFromParent()
+        ball?.removeFromParent()
         ball = nil
         print("BOOM!!")
         if balls == 0 {
@@ -233,7 +241,7 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
                             ball = Ball(scene: scene!)
                         }
                         ball?.physicsBody!.categoryBitMask    = ballCategory
-                        ball?.physicsBody!.contactTestBitMask = playfieldCategory | playerCategory | brickCategory
+                        ball?.physicsBody!.contactTestBitMask = playfieldCategory | deadlineCategory | playerCategory | brickCategory
                         ball?.run(scaleToNormal)
                     }
                     else {
