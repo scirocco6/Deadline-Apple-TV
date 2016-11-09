@@ -24,8 +24,11 @@ class Brick: SKSpriteNode {
     }
     
     func removeAG() {
-        self.physicsBody?.affectedByGravity = true
-        self.texture = fallingTexture
+        if self.physicsBody?.affectedByGravity == false {
+            self.run(SKAction.playSoundFileNamed("glass_smash.mp3", waitForCompletion: false))
+            self.physicsBody?.affectedByGravity = true
+            self.texture = fallingTexture
+        }
     }
     
     // the faster the brick was moving the more points!!@
