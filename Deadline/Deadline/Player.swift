@@ -20,7 +20,7 @@ class Player: SKSpriteNode {
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
         
         self.physicsBody!.friction       = 0.5
-        self.physicsBody!.isDynamic        = false
+        self.physicsBody!.isDynamic      = false
         self.physicsBody!.allowsRotation = false
         self.physicsBody!.usesPreciseCollisionDetection = true
     }

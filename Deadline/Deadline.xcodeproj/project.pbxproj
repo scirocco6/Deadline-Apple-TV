@@ -13,6 +13,7 @@
 		4F582A4B1DF0FC96002A30C8 /* brick_learns_gravity.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4F582A4A1DF0FC96002A30C8 /* brick_learns_gravity.mp3 */; };
 		4F582A4D1DF0FDA0002A30C8 /* ball_hits_deadline.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4F582A4C1DF0FDA0002A30C8 /* ball_hits_deadline.mp3 */; };
 		4F582A4F1DF107FA002A30C8 /* ball_hits_falling_brick.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4F582A4E1DF107FA002A30C8 /* ball_hits_falling_brick.mp3 */; };
+		4F582A511DF10991002A30C8 /* brick_hit_paddle.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4F582A501DF10991002A30C8 /* brick_hit_paddle.mp3 */; };
 		4F7F66DB1DCA6E36008D4269 /* Chalkduster.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4F7F66D91DCA6D9A008D4269 /* Chalkduster.ttf */; };
 		4F8FF3C71DD2BD5200D612FF /* glass_smash.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4F8FF3C61DD2BD5200D612FF /* glass_smash.mp3 */; };
 		4FAFFDAA1DD126880010B471 /* Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAFFDA91DD126880010B471 /* Controller.swift */; };
@@ -56,6 +57,7 @@
 		4F582A4A1DF0FC96002A30C8 /* brick_learns_gravity.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = brick_learns_gravity.mp3; sourceTree = "<group>"; };
 		4F582A4C1DF0FDA0002A30C8 /* ball_hits_deadline.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ball_hits_deadline.mp3; sourceTree = "<group>"; };
 		4F582A4E1DF107FA002A30C8 /* ball_hits_falling_brick.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ball_hits_falling_brick.mp3; sourceTree = "<group>"; };
+		4F582A501DF10991002A30C8 /* brick_hit_paddle.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = brick_hit_paddle.mp3; sourceTree = "<group>"; };
 		4F7F66D91DCA6D9A008D4269 /* Chalkduster.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Chalkduster.ttf; sourceTree = "<group>"; };
 		4F8FF3C61DD2BD5200D612FF /* glass_smash.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = glass_smash.mp3; sourceTree = "<group>"; };
 		4FAFFDA91DD126880010B471 /* Controller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Controller.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 		4F43993E1DF0DFEB00A5BD29 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				4F582A501DF10991002A30C8 /* brick_hit_paddle.mp3 */,
 				4F582A4C1DF0FDA0002A30C8 /* ball_hits_deadline.mp3 */,
 				4F582A4A1DF0FC96002A30C8 /* brick_learns_gravity.mp3 */,
 				4F582A4E1DF107FA002A30C8 /* ball_hits_falling_brick.mp3 */,
@@ -339,6 +342,7 @@
 				4F275DE71DF0ECD700E84E14 /* brick_hits_deadline2.mp3 in Resources */,
 				4FE7969D1DCA61ED00A32A37 /* Actions.sks in Resources */,
 				4F275DE51DF0EA5A00E84E14 /* ball_hit_wall.mp3 in Resources */,
+				4F582A511DF10991002A30C8 /* brick_hit_paddle.mp3 in Resources */,
 				4F582A4B1DF0FC96002A30C8 /* brick_learns_gravity.mp3 in Resources */,
 				4FE7969F1DCA61ED00A32A37 /* Game.xcassets in Resources */,
 				4FF7CBB61DCD3CF600515EB7 /* GameScene.sks in Resources */,

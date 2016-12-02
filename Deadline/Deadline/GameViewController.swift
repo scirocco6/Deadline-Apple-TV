@@ -12,10 +12,11 @@ import GameplayKit
 import GameController
 
 class GameViewController: UIViewController, SKPhysicsContactDelegate {
-    let ballHitPaddleSound = SKAction.playSoundFileNamed("ball_hits_paddle.mp3", waitForCompletion: false)
-    let ballHitWallSound   = SKAction.playSoundFileNamed("ball_hit_wall.mp3", waitForCompletion: false)
-    let ballDeathknell     = SKAction.playSoundFileNamed("ball_hits_deadline.mp3", waitForCompletion: false)
-    let brickDeathknell    = SKAction.playSoundFileNamed("brick_hits_deadline2.mp3", waitForCompletion: false)
+    let brickHitPaddleSound = SKAction.playSoundFileNamed("brick_hit_paddle.mp3", waitForCompletion: false)
+    let ballHitPaddleSound  = SKAction.playSoundFileNamed("ball_hits_paddle.mp3", waitForCompletion: false)
+    let ballHitWallSound    = SKAction.playSoundFileNamed("ball_hit_wall.mp3", waitForCompletion: false)
+    let ballDeathknell      = SKAction.playSoundFileNamed("ball_hits_deadline.mp3", waitForCompletion: false)
+    let brickDeathknell     = SKAction.playSoundFileNamed("brick_hits_deadline2.mp3", waitForCompletion: false)
 
     var score      = 0
     var balls      = 3
@@ -34,13 +35,13 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
     let brickCategory     = UInt32(0x01 << 3)
     let deadlineCategory  = UInt32(0x01 << 4)
     
-    lazy var ballHitPlayfield  : UInt32 = self.playfieldCategory | self.ballCategory
-    lazy var ballHitBrick      : UInt32 = self.ballCategory      | self.brickCategory
-//    lazy var brickHitPlayfield : UInt32 = self.playfieldCategory | self.brickCategory
-    lazy var ballHitDeadline   : UInt32 = self.deadlineCategory  | self.ballCategory
-    lazy var brickHitDeadline  : UInt32 = self.deadlineCategory  | self.brickCategory
-    lazy var ballHitPaddle     : UInt32 = self.ballCategory      | self.playerCategory
-    
+    lazy var ballHitPlayfield : UInt32 = self.playfieldCategory | self.ballCategory
+    lazy var ballHitBrick     : UInt32 = self.ballCategory      | self.brickCategory
+    lazy var ballHitDeadline  : UInt32 = self.deadlineCategory  | self.ballCategory
+    lazy var brickHitDeadline : UInt32 = self.deadlineCategory  | self.brickCategory
+    lazy var ballHitPaddle    : UInt32 = self.ballCategory      | self.playerCategory
+    lazy var brickHitPaddle   : UInt32 = self.brickCategory     | self.playerCategory
+
     let scaleToNormal  = SKAction.scale(to: 0.5,   duration: 0.5)
     let scaleToNothing = SKAction.scale(to: 0.001, duration: 0.2)
     
@@ -73,8 +74,9 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
                     
                     view.ignoresSiblingOrder = true
                     
-                    view.showsFPS = false
-                    view.showsNodeCount = false
+//                    view.showsFPS       = true
+//                    view.showsNodeCount = true
+//                    view.showsPhysics   = true
                 }
             }
         }
@@ -82,7 +84,6 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
 
     override func viewDidAppear(_ animated: Bool) {
         // playfield
-
         scene?.physicsWorld.contactDelegate = self
         
         physicsBody                  = SKPhysicsBody(edgeLoopFrom: (scene?.frame)!)
@@ -105,7 +106,7 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
         // player
         player.position = CGPoint(x: 150 ,y: (scene?.frame.minY)! + 45)
         player.physicsBody!.categoryBitMask = playerCategory
-        //player.physicsBody.contactTestBitMask = ballCategory
+        player.physicsBody!.contactTestBitMask = brickCategory
         scene?.addChild(player)
         
         // wall
@@ -116,8 +117,9 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
         
         // deadline
         let deadline = SKShapeNode(rect: CGRect(x: (scene?.frame.minX)!, y: (scene?.frame.minY)!, width: (scene?.frame.maxX)! - (scene?.frame.minX)!, height: 2))
-        deadline.fillColor = UIColor.cyan
+        deadline.fillColor = UIColor.red
         deadline.strokeColor = UIColor.red
+
         deadline.physicsBody = SKPhysicsBody(edgeLoopFrom: deadline.frame)
         deadline.physicsBody?.categoryBitMask = deadlineCategory
         scene?.addChild(deadline)
@@ -158,13 +160,9 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
     
     // new game
     func newGame() {
-        for (brick, _) in wall {
-            brickDie(brick)
-        }
+        for (brick, _) in wall {brickDie(brick)}
         
-        if wall.count == 0 {
-            wallUp()
-        }
+        if wall.count == 0 {wallUp()}
         
         score  = 0
         balls  = 3
@@ -175,9 +173,9 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
             ball = nil
         }
         
-        scoreBoard.text = "0"
-        message.text    = "Ready Player One"
-        message.isHidden  = false
+        scoreBoard.text  = "0"
+        message.text     = "Ready Player One"
+        message.isHidden = false
     }
 
     // collision resolution
@@ -213,7 +211,14 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
             ball?.run(ballHitPaddleSound)
             ball?.kick()
             
+        case brickHitPaddle:
+            let pBody = contact.bodyA.categoryBitMask == brickCategory ? contact.bodyA : contact.bodyB
+            let brick = pBody.node! as! Brick
+
+            brick.run(brickHitPaddleSound)
+            
         default:
+            print("default collision")
             ball?.kick()
         }
     }
@@ -226,6 +231,7 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
         message.isHidden = false
     }
     
+    // controller handling
     func touchMoved(toPoint pos : CGPoint) {
         let x = pos.x * 2.0        
         let newpos = CGPoint(x: x, y: pos.y)
@@ -258,10 +264,5 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
                 }
             }
         }
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
     }
 }

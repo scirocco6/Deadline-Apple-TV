@@ -45,7 +45,7 @@ class Ball: SKSpriteNode {
         
         self.physicsBody!.isDynamic          = true
         self.physicsBody!.affectedByGravity  = false
-        self.physicsBody!.velocity           = CGVector(dx: dx, dy: -300)
+        self.physicsBody!.velocity           = CGVector(dx: dx, dy: -200)
         
         self.physicsBody!.restitution        = 1.05 // gain a little speed every hit
         self.setScale(0.001)
@@ -82,9 +82,7 @@ class Ball: SKSpriteNode {
         if self.position.y <= self.parent!.frame.minY + self.size.width / 2 + 5 {
             return true
         }
-        else {
-            return false
-        }
+        return false
     }
     
     // more shiny boilerplate
