@@ -12,6 +12,11 @@ import GameplayKit
 import GameController
 
 class GameViewController: UIViewController, SKPhysicsContactDelegate {
+    let ballHitPaddleSound = SKAction.playSoundFileNamed("ball_hits_paddle.mp3", waitForCompletion: false)
+    let ballHitWallSound   = SKAction.playSoundFileNamed("ball_hit_wall.mp3", waitForCompletion: false)
+    let ballDeathknell     = SKAction.playSoundFileNamed("ball_hits_deadline.mp3", waitForCompletion: false)
+    let brickDeathknell    = SKAction.playSoundFileNamed("brick_hits_deadline2.mp3", waitForCompletion: false)
+
     var score      = 0
     var balls      = 3
     var wall       = [Brick: Bool]()
@@ -34,6 +39,7 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
 //    lazy var brickHitPlayfield : UInt32 = self.playfieldCategory | self.brickCategory
     lazy var ballHitDeadline   : UInt32 = self.deadlineCategory  | self.ballCategory
     lazy var brickHitDeadline  : UInt32 = self.deadlineCategory  | self.brickCategory
+    lazy var ballHitPaddle     : UInt32 = self.ballCategory      | self.playerCategory
     
     let scaleToNormal  = SKAction.scale(to: 0.5,   duration: 0.5)
     let scaleToNothing = SKAction.scale(to: 0.001, duration: 0.2)
@@ -82,16 +88,17 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
         physicsBody                  = SKPhysicsBody(edgeLoopFrom: (scene?.frame)!)
         physicsBody!.friction        = 0.0
         physicsBody!.categoryBitMask = playfieldCategory
-        scene?.physicsBody = physicsBody
+        scene?.physicsBody           = physicsBody
         
-        message.text     = "Ready Player One"
-        message.fontSize = 65
-        message.position = CGPoint(x:(scene?.frame.midX)!, y:(scene?.frame.midY)!)
+        message.text      = "Ready Player One"
+        message.fontSize  = 65
+        message.position  = CGPoint(x:(scene?.frame.midX)!, y:(scene?.frame.midY)!)
+        message.zPosition = 2.0
         scene?.addChild(message)
         
         scoreBoard.text     = ""
         scoreBoard.fontSize = 40
-        scoreBoard.position = CGPoint(x: (scene?.frame.minX)! + 45, y: (scene?.frame.minY)! + 7)
+        scoreBoard.position = CGPoint(x: (scene?.frame.minX)! + 15, y: (scene?.frame.minY)! + 7)
         scoreBoard.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         scene?.addChild(scoreBoard)
 
@@ -122,12 +129,10 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
     // death of a brick
     func brickDie(_ brick: Brick) {
         brick.removeFromParent()
-        print("wump")
         
         wall.removeValue(forKey: brick)
-        if wall.count == 0 {
-            wallUp()
-        }
+        if wall.count == 0 {wallUp()}
+        
         wallLeft.text   = "\(wall.count)"
     }
     
@@ -181,16 +186,17 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
         
         switch all {
         case ballHitPlayfield:
+            ball?.run(ballHitWallSound)
             ball?.kick()
             
         case ballHitDeadline:
+            ball?.run(ballDeathknell)
             ball?.run(scaleToNothing, completion: {self.die()})
             
         case ballHitBrick:
             let brick = contact.bodyA.categoryBitMask == brickCategory ? contact.bodyA : contact.bodyB
             (brick.node as! Brick).removeAG()
             ball?.kick()
-            print("CRASH!")
             
         case brickHitDeadline:
             let pBody = contact.bodyA.categoryBitMask == brickCategory ? contact.bodyA : contact.bodyB
@@ -200,11 +206,15 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
             scoreBoard.text = "\(score)"
             
             pBody.isDynamic = false // dead brick can't collide or die again
+            brick.run(brickDeathknell)
             brick.run(scaleToNothing, completion: {self.brickDie(brick)})
+        
+        case ballHitPaddle:
+            ball?.run(ballHitPaddleSound)
+            ball?.kick()
             
         default:
             ball?.kick()
-            print("...ayup")
         }
     }
     
@@ -212,15 +222,14 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
     func die() {
         ball?.removeFromParent()
         ball = nil
-        print("BOOM!!")
-        if balls == 0 {
-            message.text = "Game Over"
-        }
+        if balls == 0 {message.text = "Game Over"}
         message.isHidden = false
     }
     
     func touchMoved(toPoint pos : CGPoint) {
-        player.moveTo(pos)
+        let x = pos.x * 2.0        
+        let newpos = CGPoint(x: x, y: pos.y)
+        player.moveTo(newpos)
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -234,7 +243,6 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
             if button.isPressed == false {
                 if (ball == nil) {
                     if (balls > 0) { // if no ball in play AND there are any left, launch one
-                        print("new ball launched!!@")
                         message.isHidden = true
                         balls -= 1
                         if scene != nil {

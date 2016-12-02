@@ -9,9 +9,12 @@
 import SpriteKit
 
 class Brick: SKSpriteNode {
-    let agTexture = SKTexture(imageNamed: "rainbow_brick")
+    let agTexture      = SKTexture(imageNamed: "rainbow_brick")
     let fallingTexture = SKTexture(imageNamed: "heavy_brick")
-    let glassCrashSound = SKAction.playSoundFileNamed("glass_smash.mp3", waitForCompletion: false)
+    
+    let glassCrashSound         = SKAction.playSoundFileNamed("glass_smash.mp3", waitForCompletion: false)
+    let brickLearnsGravitySound = SKAction.playSoundFileNamed("brick_learns_gravity.mp3", waitForCompletion: false)
+    let fallingBrickHitSound    = SKAction.playSoundFileNamed("brick_learns_gravity.mp3", waitForCompletion: false)
 
     
     init(x: Int, y: Int) {
@@ -27,9 +30,13 @@ class Brick: SKSpriteNode {
     
     func removeAG() {
         if self.physicsBody?.affectedByGravity == false {
-            self.run(glassCrashSound)
+            self.run(brickLearnsGravitySound)
             self.physicsBody?.affectedByGravity = true
             self.texture = fallingTexture
+        }
+        else {
+            self.run(fallingBrickHitSound)
+
         }
     }
     
@@ -39,9 +46,9 @@ class Brick: SKSpriteNode {
         let dx = abs(currentVelocity.dx)
         let dy = abs(currentVelocity.dy)
         
-        let score = dx > dy ? Int(dx) : Int(dy)
+        var score = dx > dy ? Int(dx) : Int(dy)
+        score += 5
         
-        print("\(score) points")
         return score
     }
     

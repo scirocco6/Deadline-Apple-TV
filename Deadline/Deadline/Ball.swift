@@ -58,9 +58,6 @@ class Ball: SKSpriteNode {
 
         let currentVelocity = self.physicsBody!.velocity
         
-        print("ping! \(currentVelocity.dx) \(currentVelocity.dy)")
-
-        
         var newDX = currentVelocity.dx //* 1.05 is added via restitution instead of here
         var newDY = currentVelocity.dy //* 1.05
         
@@ -79,9 +76,6 @@ class Ball: SKSpriteNode {
         }
 
         self.physicsBody!.velocity = CGVector(dx: newDX, dy: newDY)
-        
-        print("pong! \(newDX) \(newDY)")
-        
     }
     
     func shouldDie() -> Bool {

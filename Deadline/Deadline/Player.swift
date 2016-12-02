@@ -10,7 +10,7 @@ import SpriteKit
 
 class Player: SKSpriteNode {
     let image = "wooden_paddle"
-    
+
     init() {
         let texture = SKTexture(imageNamed: image)
         super.init(texture: texture, color: UIColor.clear, size: texture.size())
