@@ -57,7 +57,10 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
         
         // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
         // including entities and graphs.
+        
+        let titleScene = GKScene(fileNamed: "TitleScene")
         gkScene = GKScene(fileNamed: "GameScene")
+
         if gkScene != nil {
             // Get the SKScene from the loaded GKScene
             scene = gkScene?.rootNode as! GameScene?
@@ -66,24 +69,27 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
                 scene?.entities = (gkScene?.entities)!
                 scene?.graphs = (gkScene?.graphs)!
                 
+                let title = titleScene?.rootNode as! GameScene
                 // Set the scale mode to scale to fit the window
                 scene?.scaleMode = .aspectFill
+                title.scaleMode  = .aspectFill
                 
                 // Present the scene
                 if let view = self.view as! SKView? {
-                    view.presentScene(scene)
-                    
-                    view.ignoresSiblingOrder = true
-                    
-//                    view.showsFPS       = true
-//                    view.showsNodeCount = true
-//                    view.showsPhysics   = true
+                    view.presentScene(title)
+                    self.perform(#selector(GameViewController.startGame), with: nil, afterDelay: 4.5)
                 }
             }
         }
     }
 
-    override func viewDidAppear(_ animated: Bool) {
+//    override func viewDidAppear(_ animated: Bool) {
+    func startGame() {
+        let crossFade = SKTransition.crossFade(withDuration: 2.0)
+        crossFade.pausesIncomingScene = false
+        crossFade.pausesOutgoingScene = false
+        
+        (self.view as! SKView?)?.presentScene(scene!, transition: crossFade)
         // playfield
         scene?.physicsWorld.contactDelegate = self
         
