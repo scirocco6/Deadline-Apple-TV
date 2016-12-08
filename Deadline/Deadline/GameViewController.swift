@@ -12,10 +12,10 @@ import GameplayKit
 import GameController
 
 class GameViewController: UIViewController, SKPhysicsContactDelegate {
-    let brickHitPaddleSound = SKAction.playSoundFileNamed("brick_hit_paddle.mp3", waitForCompletion: false)
-    let ballHitPaddleSound  = SKAction.playSoundFileNamed("ball_hits_paddle.mp3", waitForCompletion: false)
-    let ballHitWallSound    = SKAction.playSoundFileNamed("ball_hit_wall.mp3", waitForCompletion: false)
-    let ballDeathknell      = SKAction.playSoundFileNamed("ball_hits_deadline.mp3", waitForCompletion: false)
+    let brickHitPaddleSound = SKAction.playSoundFileNamed("brick_hit_paddle.mp3",     waitForCompletion: false)
+    let ballHitPaddleSound  = SKAction.playSoundFileNamed("ball_hits_paddle.mp3",     waitForCompletion: false)
+    let ballHitWallSound    = SKAction.playSoundFileNamed("ball_hit_wall.mp3",        waitForCompletion: false)
+    let ballDeathknell      = SKAction.playSoundFileNamed("ball_hits_deadline.mp3",   waitForCompletion: false)
     let brickDeathknell     = SKAction.playSoundFileNamed("brick_hits_deadline2.mp3", waitForCompletion: false)
 
     var score      = 0
@@ -42,8 +42,9 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
     lazy var ballHitPaddle    : UInt32 = self.ballCategory      | self.playerCategory
     lazy var brickHitPaddle   : UInt32 = self.brickCategory     | self.playerCategory
 
-    let scaleToNormal  = SKAction.scale(to: 0.5,   duration: 0.5)
-    let scaleToNothing = SKAction.scale(to: 0.001, duration: 0.2)
+    let scaleToNormal   = SKAction.scale(to: 0.5,   duration: 0.5)
+    let scaleToNothing  = SKAction.scale(to: 0.001, duration: 0.2)
+    let scaleToInfinity = SKAction.scale(to: 50, duration: 1.0)
     
     var controller = Controller()
 
@@ -200,8 +201,17 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
             let pBody = contact.bodyA.categoryBitMask == brickCategory ? contact.bodyA : contact.bodyB
             let brick = pBody.node! as! Brick
             
-            score += brick.score()
+            let brickValue = brick.score()
+            score += brickValue
             scoreBoard.text = "\(score)"
+            let prize = SKLabelNode(fontNamed:"Chalkduster")
+            prize.text = String(brickValue)
+            prize.position = brick.position
+            prize.fontSize = 10
+            prize.zPosition = -1.0
+            
+            scene?.addChild(prize)
+            prize.run(scaleToInfinity, completion: {prize.removeFromParent()})
             
             pBody.isDynamic = false // dead brick can't collide or die again
             brick.run(brickDeathknell)
