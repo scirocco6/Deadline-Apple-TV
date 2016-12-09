@@ -77,7 +77,7 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
                 // Present the scene
                 if let view = self.view as! SKView? {
                     view.presentScene(title)
-                    self.perform(#selector(GameViewController.startGame), with: nil, afterDelay: 4.5)
+                    self.perform(#selector(GameViewController.startGame), with: nil, afterDelay: 4.0)
                 }
             }
         }
@@ -85,7 +85,7 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
 
 //    override func viewDidAppear(_ animated: Bool) {
     func startGame() {
-        let crossFade = SKTransition.crossFade(withDuration: 2.0)
+        let crossFade = SKTransition.crossFade(withDuration: 1.0)
         crossFade.pausesIncomingScene = false
         crossFade.pausesOutgoingScene = false
         
@@ -261,24 +261,24 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
     }
     
     func controllerChangedHandler(which: GCMicroGamepad, what: GCControllerElement) -> () {
-        if let button = what as? GCControllerButtonInput {
-            if button.isPressed == false {
-                if (ball == nil) {
-                    if (balls > 0) { // if no ball in play AND there are any left, launch one
-                        message.isHidden = true
-                        balls -= 1
-                        if scene != nil {
-                            ball = Ball(scene: scene!)
-                        }
-                        ball?.physicsBody!.categoryBitMask    = ballCategory
-                        ball?.physicsBody!.contactTestBitMask = playfieldCategory | deadlineCategory | playerCategory | brickCategory
-                        ball?.run(scaleToNormal)
-                    }
-                    else {
-                        newGame()
-                    }
-                }
+        guard
+            let button = what as? GCControllerButtonInput,
+            button.isPressed == false,
+            ball == nil
+        else {return}
+
+        if (balls > 0) { // if no ball in play AND there are any left, launch one
+            message.isHidden = true
+            balls -= 1
+            if scene != nil {
+                ball = Ball(scene: scene!)
             }
+            ball?.physicsBody!.categoryBitMask    = ballCategory
+            ball?.physicsBody!.contactTestBitMask = playfieldCategory | deadlineCategory | playerCategory | brickCategory
+            ball?.run(scaleToNormal)
+        }
+        else {
+            newGame()
         }
     }
 }
