@@ -9,7 +9,7 @@
 import SpriteKit
 
 class Player: SKSpriteNode {
-    let image = "wooden_paddle"
+    let image = "edgyPaddle"
 
     init() {
         let texture = SKTexture(imageNamed: image)
@@ -17,7 +17,8 @@ class Player: SKSpriteNode {
         
         self.setScale(0.5)
 
-        self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
+        //self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
+        self.physicsBody = SKPhysicsBody(texture: texture, size: CGSize(width: self.size.width, height: self.size.height) )
         
         self.physicsBody!.friction       = 0.5
         self.physicsBody!.isDynamic      = false

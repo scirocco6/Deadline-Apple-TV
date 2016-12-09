@@ -44,7 +44,7 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
 
     let scaleToNormal   = SKAction.scale(to: 0.5,   duration: 0.5)
     let scaleToNothing  = SKAction.scale(to: 0.001, duration: 0.2)
-    let scaleToInfinity = SKAction.scale(to: 50, duration: 1.0)
+    let scaleToInfinity = SKAction.scale(to: 5,     duration: 1.0)
     
     var controller = Controller()
 
