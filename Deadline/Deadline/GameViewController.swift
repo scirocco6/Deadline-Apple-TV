@@ -54,7 +54,7 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
         // including entities and graphs.
         
