@@ -248,18 +248,18 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
     }
     
     // controller handling
-    func touchMoved(toPoint pos : CGPoint) {
-        let x = pos.x * 2.0        
-        let newpos = CGPoint(x: x, y: pos.y)
-        player.moveTo(newpos)
-    }
-    
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches {
             self.touchMoved(toPoint: t.location(in: scene!))
         }
     }
     
+    func touchMoved(toPoint pos : CGPoint) {
+        let x = pos.x * 2.0        
+        let newpos = CGPoint(x: x, y: pos.y)
+        player.moveTo(newpos)
+    }
+
     func controllerChangedHandler(which: GCMicroGamepad, what: GCControllerElement) -> () {
         guard
             let button = what as? GCControllerButtonInput,
