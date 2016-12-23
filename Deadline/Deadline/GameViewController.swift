@@ -91,6 +91,7 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
         crossFade.pausesOutgoingScene = false
         
         (self.view as! SKView?)?.presentScene(scene!, transition: crossFade)
+        
         // playfield
         scene?.physicsWorld.contactDelegate = self
         
@@ -99,12 +100,14 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
         physicsBody!.categoryBitMask = playfieldCategory
         scene?.physicsBody           = physicsBody
         
+        // message
         message.text      = "Ready Player One"
         message.fontSize  = 65
         message.position  = CGPoint(x:(scene?.frame.midX)!, y:(scene?.frame.midY)!)
         message.zPosition = 2.0
         scene?.addChild(message)
         
+        // scoreboard
         scoreBoard.text     = ""
         scoreBoard.fontSize = 40
         scoreBoard.position = CGPoint(x: (scene?.frame.minX)! + 15, y: (scene?.frame.minY)! + 7)
