@@ -154,7 +154,7 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
         scene?.addChild(prize)
         prize.run(scaleToInfinity, completion: {prize.removeFromParent()})
         
-        brick.physicsBody?.isDynamic = false // dead brick can't collide or die again
+        brick.physicsBody?.isDynamic = false // dead bricks can't collide again
         brick.run(brickDeathknell)
         brick.run(scaleToNothing, completion: {self.brickDie(brick)})
     }
