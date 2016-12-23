@@ -52,6 +52,8 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
     var scene: GameScene?
     var physicsBody: SKPhysicsBody?
     
+    var readyToPlay = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -132,6 +134,7 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
         scene?.addChild(deadline)
         
         controller.valueChangedHandler = controllerChangedHandler
+        readyToPlay = true
         newGame()
     }
     
@@ -255,7 +258,9 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
     }
     
     func touchMoved(toPoint pos : CGPoint) {
-        let x = pos.x * 2.0        
+        guard readyToPlay else {return}
+
+        let x = pos.x * 2.0
         let newpos = CGPoint(x: x, y: pos.y)
         player.moveTo(newpos)
     }
