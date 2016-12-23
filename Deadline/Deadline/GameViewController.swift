@@ -22,6 +22,7 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
     var wall       = [Brick: Bool]()
     var inPlay     = false
     
+    let sound      = SKNode()
     let message    = SKLabelNode(fontNamed:"Chalkduster")
     let scoreBoard = SKLabelNode(fontNamed:"Chalkduster")
     let wallLeft   = SKLabelNode(fontNamed:"Chalkduster")
@@ -99,6 +100,9 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
         physicsBody!.categoryBitMask = playfieldCategory
         scene?.physicsBody           = physicsBody
         
+        // sound
+        scene?.addChild(sound)
+        
         // message
         message.text      = "Ready Player One"
         message.fontSize  = 65
@@ -157,7 +161,7 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
         prize.run(scaleToInfinity, completion: {prize.removeFromParent()})
         
         brick.physicsBody?.isDynamic = false // dead bricks can't collide again
-        brick.run(brickDeathknell)
+        sound.run(brickDeathknell)
         brick.run(scaleToNothing, completion: {self.brickDie(brick)})
     }
     
@@ -216,11 +220,11 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
         
         switch all {
         case ballHitPlayfield:
-            ball?.run(ballHitWallSound)
+            sound.run(ballHitWallSound)
             ball?.kick()
             
         case ballHitDeadline:
-            ball?.run(ballDeathknell)
+            sound.run(ballDeathknell)
             ball?.run(scaleToNothing, completion: {self.die()})
             
         case ballHitBrick:
@@ -233,7 +237,7 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
             scoreAndRemoveBrick(pBody.node! as! Brick, multiplier: 1)
         
         case ballHitPaddle:
-            ball?.run(ballHitPaddleSound)
+            sound.run(ballHitPaddleSound)
             ball?.kick()
             
         case brickHitPaddle:
