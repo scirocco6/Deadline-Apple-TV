@@ -141,6 +141,24 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
     }
     
     // death of a brick
+    func scoreAndRemoveBrick(_ brick: Brick) {
+        let brickValue = brick.score()
+        score += brickValue
+        scoreBoard.text = "\(score)"
+        let prize = SKLabelNode(fontNamed:"Chalkduster")
+        prize.text = String(brickValue)
+        prize.position = brick.position
+        prize.fontSize = 10
+        prize.zPosition = -1.0
+        
+        scene?.addChild(prize)
+        prize.run(scaleToInfinity, completion: {prize.removeFromParent()})
+        
+        brick.physicsBody?.isDynamic = false // dead brick can't collide or die again
+        brick.run(brickDeathknell)
+        brick.run(scaleToNothing, completion: {self.brickDie(brick)})
+    }
+    
     func brickDie(_ brick: Brick) {
         brick.removeFromParent()
         
@@ -149,7 +167,7 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
         
         wallLeft.text   = "\(wall.count)"
     }
-    
+
     // new wall
     func wallUp() {
         let leftX = Int(scene!.frame.minX)
@@ -210,23 +228,7 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
             
         case brickHitDeadline:
             let pBody = contact.bodyA.categoryBitMask == brickCategory ? contact.bodyA : contact.bodyB
-            let brick = pBody.node! as! Brick
-            
-            let brickValue = brick.score()
-            score += brickValue
-            scoreBoard.text = "\(score)"
-            let prize = SKLabelNode(fontNamed:"Chalkduster")
-            prize.text = String(brickValue)
-            prize.position = brick.position
-            prize.fontSize = 10
-            prize.zPosition = -1.0
-            
-            scene?.addChild(prize)
-            prize.run(scaleToInfinity, completion: {prize.removeFromParent()})
-            
-            pBody.isDynamic = false // dead brick can't collide or die again
-            brick.run(brickDeathknell)
-            brick.run(scaleToNothing, completion: {self.brickDie(brick)})
+            scoreAndRemoveBrick(pBody.node! as! Brick)
         
         case ballHitPaddle:
             ball?.run(ballHitPaddleSound)
