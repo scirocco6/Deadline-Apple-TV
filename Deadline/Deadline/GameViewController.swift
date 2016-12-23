@@ -85,7 +85,6 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
         }
     }
 
-//    override func viewDidAppear(_ animated: Bool) {
     func startGame() {
         let crossFade = SKTransition.crossFade(withDuration: 1.0)
         crossFade.pausesIncomingScene = false
