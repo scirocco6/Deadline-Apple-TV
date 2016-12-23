@@ -12,7 +12,6 @@ import GameplayKit
 import GameController
 
 class GameViewController: UIViewController, SKPhysicsContactDelegate {
-    let brickHitPaddleSound = SKAction.playSoundFileNamed("brick_hit_paddle.mp3",     waitForCompletion: false)
     let ballHitPaddleSound  = SKAction.playSoundFileNamed("ball_hits_paddle.mp3",     waitForCompletion: false)
     let ballHitWallSound    = SKAction.playSoundFileNamed("ball_hit_wall.mp3",        waitForCompletion: false)
     let ballDeathknell      = SKAction.playSoundFileNamed("ball_hits_deadline.mp3",   waitForCompletion: false)
@@ -141,8 +140,11 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
     }
     
     // death of a brick
-    func scoreAndRemoveBrick(_ brick: Brick) {
-        let brickValue = brick.score()
+    func scoreAndRemoveBrick(_ brick: Brick, multiplier: Int) {
+        guard (brick.userData?["dying"]) as? Bool == false else {return} // dying bricks shouldn't die again
+        brick.userData?["dying"] = true
+        
+        let brickValue = brick.score() * multiplier
         score += brickValue
         scoreBoard.text = "\(score)"
         let prize = SKLabelNode(fontNamed:"Chalkduster")
@@ -228,7 +230,7 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
             
         case brickHitDeadline:
             let pBody = contact.bodyA.categoryBitMask == brickCategory ? contact.bodyA : contact.bodyB
-            scoreAndRemoveBrick(pBody.node! as! Brick)
+            scoreAndRemoveBrick(pBody.node! as! Brick, multiplier: 1)
         
         case ballHitPaddle:
             ball?.run(ballHitPaddleSound)
@@ -236,9 +238,7 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
             
         case brickHitPaddle:
             let pBody = contact.bodyA.categoryBitMask == brickCategory ? contact.bodyA : contact.bodyB
-            let brick = pBody.node! as! Brick
-
-            brick.run(brickHitPaddleSound)
+            scoreAndRemoveBrick(pBody.node! as! Brick, multiplier: 2)
             
         default:
             print("default collision")

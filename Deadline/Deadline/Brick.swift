@@ -18,6 +18,10 @@ class Brick: SKSpriteNode {
     
     init(x: Int, y: Int) {
         super.init(texture: agTexture, color: UIColor.clear, size: agTexture.size())
+        
+        self.userData = NSMutableDictionary()
+        self.userData?["dying"] = false
+        
         self.physicsBody = SKPhysicsBody(rectangleOf: self.size)
         
         self.physicsBody!.isDynamic = true
