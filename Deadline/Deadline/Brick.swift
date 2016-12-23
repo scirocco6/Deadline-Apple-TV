@@ -12,7 +12,6 @@ class Brick: SKSpriteNode {
     let agTexture      = SKTexture(imageNamed: "rainbow_brick")
     let fallingTexture = SKTexture(imageNamed: "heavy_brick")
     
-    let glassCrashSound         = SKAction.playSoundFileNamed("glass_smash.mp3", waitForCompletion: false)
     let brickLearnsGravitySound = SKAction.playSoundFileNamed("brick_learns_gravity.mp3", waitForCompletion: false)
     let fallingBrickHitSound    = SKAction.playSoundFileNamed("brick_learns_gravity.mp3", waitForCompletion: false)
 
