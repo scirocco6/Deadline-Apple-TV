@@ -50,11 +50,11 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
     
     var readyToPlay = false
     
+    // load and play the title scene
+    // TODO: add an interuptable attract mode scene
+    // then fade over to the actual game scene
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
-        // including entities and graphs.
         
         let titleScene = GKScene(fileNamed: "TitleScene")
         gkScene = GKScene(fileNamed: "GameScene")
@@ -72,7 +72,7 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
                 scene?.scaleMode = .aspectFill
                 title.scaleMode  = .aspectFill
                 
-                // Present the scene
+                // Present the actual game scene
                 if let view = self.view as! SKView? {
                     view.presentScene(title)
                     self.perform(#selector(GameViewController.startGame), with: nil, afterDelay: 4.0)
