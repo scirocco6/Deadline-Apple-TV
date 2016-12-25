@@ -14,6 +14,7 @@
 		4F582A4D1DF0FDA0002A30C8 /* ball_hits_deadline.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4F582A4C1DF0FDA0002A30C8 /* ball_hits_deadline.mp3 */; };
 		4F582A4F1DF107FA002A30C8 /* ball_hits_falling_brick.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4F582A4E1DF107FA002A30C8 /* ball_hits_falling_brick.mp3 */; };
 		4F582A511DF10991002A30C8 /* brick_hit_paddle.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4F582A501DF10991002A30C8 /* brick_hit_paddle.mp3 */; };
+		4F5E3A9C1E10451C00BE7B82 /* Sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5E3A9B1E10451C00BE7B82 /* Sound.swift */; };
 		4F7F66DB1DCA6E36008D4269 /* Chalkduster.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4F7F66D91DCA6D9A008D4269 /* Chalkduster.ttf */; };
 		4F8FF3C71DD2BD5200D612FF /* glass_smash.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4F8FF3C61DD2BD5200D612FF /* glass_smash.mp3 */; };
 		4FAA9E2B1DFA44CD004EF048 /* Royalty Free Music Track - Dire Space Emergency Chiptune.webloc in Resources */ = {isa = PBXBuildFile; fileRef = 4FAA9E2A1DFA44CD004EF048 /* Royalty Free Music Track - Dire Space Emergency Chiptune.webloc */; };
@@ -61,6 +62,7 @@
 		4F582A4C1DF0FDA0002A30C8 /* ball_hits_deadline.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ball_hits_deadline.mp3; sourceTree = "<group>"; };
 		4F582A4E1DF107FA002A30C8 /* ball_hits_falling_brick.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ball_hits_falling_brick.mp3; sourceTree = "<group>"; };
 		4F582A501DF10991002A30C8 /* brick_hit_paddle.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = brick_hit_paddle.mp3; sourceTree = "<group>"; };
+		4F5E3A9B1E10451C00BE7B82 /* Sound.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sound.swift; sourceTree = "<group>"; };
 		4F7F66D91DCA6D9A008D4269 /* Chalkduster.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Chalkduster.ttf; sourceTree = "<group>"; };
 		4F8FF3C61DD2BD5200D612FF /* glass_smash.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = glass_smash.mp3; sourceTree = "<group>"; };
 		4FAA9E2A1DFA44CD004EF048 /* Royalty Free Music Track - Dire Space Emergency Chiptune.webloc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Royalty Free Music Track - Dire Space Emergency Chiptune.webloc"; sourceTree = "<group>"; };
@@ -121,6 +123,8 @@
 				4FF7CBB91DCD3EA000515EB7 /* Brick.swift */,
 				4FF7CBBB1DCD3EA900515EB7 /* Player.swift */,
 				4FAFFDA91DD126880010B471 /* Controller.swift */,
+				4F5E3A9B1E10451C00BE7B82 /* Sound.swift */,
+				4FAA9E301DFA4783004EF048 /* BackgroundMusic.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -213,7 +217,6 @@
 			children = (
 				4FE796A91DCA61ED00A32A37 /* Info.plist */,
 				4FE796981DCA61ED00A32A37 /* AppDelegate.swift */,
-				4FAA9E301DFA4783004EF048 /* BackgroundMusic.swift */,
 				4F042DF51DD12FCF00C6892F /* Views */,
 				4F042DF41DD12FC600C6892F /* Controlers */,
 				4F042DF31DD12FBE00C6892F /* Models */,
@@ -399,6 +402,7 @@
 				4FE796A31DCA61ED00A32A37 /* GameViewController.swift in Sources */,
 				4FF7CBBC1DCD3EA900515EB7 /* Player.swift in Sources */,
 				4FE796991DCA61ED00A32A37 /* AppDelegate.swift in Sources */,
+				4F5E3A9C1E10451C00BE7B82 /* Sound.swift in Sources */,
 				4FAFFDAA1DD126880010B471 /* Controller.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

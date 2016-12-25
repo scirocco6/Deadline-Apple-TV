@@ -12,9 +12,7 @@ class Brick: SKSpriteNode {
     let agTexture      = SKTexture(imageNamed: "rainbow_brick")
     let fallingTexture = SKTexture(imageNamed: "heavy_brick")
     
-    let brickLearnsGravitySound = SKAction.playSoundFileNamed("brick_learns_gravity.mp3", waitForCompletion: false)
-    let fallingBrickHitSound    = SKAction.playSoundFileNamed("brick_learns_gravity.mp3", waitForCompletion: false)
-
+    let player = Sound()
     
     init(x: Int, y: Int) {
         super.init(texture: agTexture, color: UIColor.clear, size: agTexture.size())
@@ -33,13 +31,12 @@ class Brick: SKSpriteNode {
     
     func removeAG() {
         if self.physicsBody?.affectedByGravity == false {
-            self.run(brickLearnsGravitySound)
+            player.brickLearnsGravity()
             self.physicsBody?.affectedByGravity = true
             self.texture = fallingTexture
         }
         else {
-            self.run(fallingBrickHitSound)
-
+            player.fallingBrickHit()
         }
     }
     

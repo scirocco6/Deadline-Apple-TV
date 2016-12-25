@@ -12,17 +12,13 @@ import GameplayKit
 import GameController
 
 class GameViewController: UIViewController, SKPhysicsContactDelegate {
-    let ballHitPaddleSound  = SKAction.playSoundFileNamed("ball_hits_paddle.mp3",     waitForCompletion: false)
-    let ballHitWallSound    = SKAction.playSoundFileNamed("ball_hit_wall.mp3",        waitForCompletion: false)
-    let ballDeathknell      = SKAction.playSoundFileNamed("ball_hits_deadline.mp3",   waitForCompletion: false)
-    let brickDeathknell     = SKAction.playSoundFileNamed("brick_hits_deadline2.mp3", waitForCompletion: false)
+    let sound = Sound()
 
     var score      = 0
     var balls      = 3
     var wall       = [Brick: Bool]()
     var inPlay     = false
     
-    let sound      = SKNode()
     let message    = SKLabelNode(fontNamed:"Chalkduster")
     let scoreBoard = SKLabelNode(fontNamed:"Chalkduster")
     let wallLeft   = SKLabelNode(fontNamed:"Chalkduster")
@@ -53,7 +49,7 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
     var physicsBody: SKPhysicsBody?
     
     var readyToPlay = false
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -101,7 +97,7 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
         scene?.physicsBody           = physicsBody
         
         // sound
-        scene?.addChild(sound)
+        Sound.scene = scene
         
         // message
         message.text      = "Ready Player One"
@@ -161,7 +157,9 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
         prize.run(scaleToInfinity, completion: {prize.removeFromParent()})
         
         brick.physicsBody?.isDynamic = false // dead bricks can't collide again
-        sound.run(brickDeathknell)
+        
+        //sound.run(brickDeathknell)
+        sound.brickDeathknell()
         brick.run(scaleToNothing, completion: {self.brickDie(brick)})
     }
     
@@ -220,11 +218,11 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
         
         switch all {
         case ballHitPlayfield:
-            sound.run(ballHitWallSound)
+            sound.ballHitWall()
             ball?.kick()
             
         case ballHitDeadline:
-            sound.run(ballDeathknell)
+            sound.ballDeathknell()
             ball?.run(scaleToNothing, completion: {self.die()})
             
         case ballHitBrick:
@@ -237,7 +235,7 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
             scoreAndRemoveBrick(pBody.node! as! Brick, multiplier: 1)
         
         case ballHitPaddle:
-            sound.run(ballHitPaddleSound)
+            sound.ballHitPaddle()
             ball?.kick()
             
         case brickHitPaddle:
