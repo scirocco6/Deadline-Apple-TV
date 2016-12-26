@@ -19,7 +19,6 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
     var wall       = [Brick: Bool]()
     var inPlay     = false
     
-    let message    = SKLabelNode(fontNamed:"Chalkduster")
     let scoreBoard = SKLabelNode(fontNamed:"Chalkduster")
     let wallLeft   = SKLabelNode(fontNamed:"Chalkduster")
     let player     = Player()
@@ -65,7 +64,9 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
                     
                     // Present the actual game scene
                     if let view = self.view as! SKView? {
-                        //view.presentScene(title)
+                        // show the title scene
+                        // wait for it to finish
+                        // then start the actual game scene
                         view.presentScene(titleScene)
                         self.perform(#selector(GameViewController.startGame), with: nil, afterDelay: 4.0)
                     }
@@ -92,13 +93,6 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
         
         // sound
         Sound.scene = scene
-        
-        // message
-        message.text      = "Ready Player One"
-        message.fontSize  = 65
-        message.position  = CGPoint(x:(scene?.frame.midX)!, y:(scene?.frame.midY)!)
-        message.zPosition = 2.0
-        scene?.addChild(message)
         
         // scoreboard
         scoreBoard.text     = ""
@@ -196,8 +190,8 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
         }
         
         scoreBoard.text  = "0"
-        message.text     = "Ready Player One"
-        message.isHidden = false
+        scene?.message.text     = "Ready Player One"
+        scene?.message.isHidden = false
     }
 
     // collision resolution
@@ -240,8 +234,8 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
     func die() {
         ball?.removeFromParent()
         ball = nil
-        if balls == 0 {message.text = "Game Over"}
-        message.isHidden = false
+        if balls == 0 {scene?.message.text = "Game Over"}
+        scene?.message.isHidden = false
     }
     
     // controller handling
@@ -267,7 +261,7 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
         else {return}
 
         if (balls > 0) { // if no ball in play AND there are any left, launch one
-            message.isHidden = true
+            scene?.message.isHidden = true
             balls -= 1
             if scene != nil {
                 ball = Ball(scene: scene!)

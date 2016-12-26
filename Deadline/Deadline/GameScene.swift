@@ -10,11 +10,25 @@ import SpriteKit
 import GameplayKit
 
 public class GameScene: SKScene {
-    var deadline: DeadLine?
+    var initialized = false // deal with sceneDidLoad is called twice due to scene editor bug :(
+    let message = SKLabelNode(fontNamed:"Chalkduster")
 
+    var deadline: DeadLine?
+    
     private var lastUpdateTime : TimeInterval = 0
 
     override public func sceneDidLoad() {
+        guard initialized == false else {return}
+        initialized = true
+        
+        // message
+        message.text      = "Ready Player One"
+        message.fontSize  = 65
+        message.position  = CGPoint(x:(scene?.frame.midX)!, y:(scene?.frame.midY)!)
+        message.zPosition = 2.0
+        self.addChild(message)
+        
+        // deadline
         deadline = DeadLine(scene: self)
     }
     
@@ -26,7 +40,7 @@ public class GameScene: SKScene {
         // Calculate time since last update
         let dt = currentTime - self.lastUpdateTime
         if dt > 0.1 {
-            deadline?.randomizeColor()
+//            deadline?.randomizeColor()
             self.lastUpdateTime = currentTime
         }
     }
