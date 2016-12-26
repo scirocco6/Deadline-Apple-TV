@@ -60,7 +60,7 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
                 scene = gkScene.rootNode as! GameScene?
                 if scene != nil {
                     // Set the scale mode to scale to fit the window
-                    scene?.scaleMode = .aspectFill
+                    scene?.scaleMode      = .aspectFill
                     titleScene.scaleMode  = .aspectFill
                     
                     // Present the actual game scene
