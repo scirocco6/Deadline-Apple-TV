@@ -98,7 +98,6 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // deadline
         deadline?.physicsBody?.categoryBitMask = deadlineCategory
-        
 
         newGame()
     }
@@ -179,9 +178,10 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    
     // death of a player
     func die() {
+        deadline?.randomizeColor()
+        
         ball?.removeFromParent()
         ball = nil
         if balls == 0 {message.text = "Game Over"}
@@ -202,6 +202,8 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
         guard (brick.userData?["dying"]) as? Bool == false else {return} // dying bricks shouldn't die again
         brick.userData?["dying"] = true
         
+        deadline?.randomizeColor()
+
         let brickValue = brick.score() * multiplier
         score += brickValue
         scoreBoard.text = "\(score)"
@@ -219,6 +221,21 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
         //sound.run(brickDeathknell)
         sound.brickDeathknell()
         brick.run(scaleToNothing, completion: {self.brickDie(brick)})
+    }
+    
+    func newBall() {
+        if (balls > 0) { // if no ball in play AND there are any left, launch one
+            message.isHidden = true
+            balls -= 1
+            ball = Ball(scene: self)
+
+            ball?.physicsBody!.categoryBitMask    = ballCategory
+            ball?.physicsBody!.contactTestBitMask = playfieldCategory | deadlineCategory | playerCategory | brickCategory
+            ball?.run(scaleToNormal)
+        }
+        else {
+            newGame()
+        }
     }
     
     override public func update(_ currentTime: TimeInterval) { // Called before each frame is rendered

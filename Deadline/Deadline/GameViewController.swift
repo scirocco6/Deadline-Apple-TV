@@ -11,44 +11,40 @@ import SpriteKit
 import GameplayKit
 import GameController
 
-
-
 class GameViewController: UIViewController {
-    var controller = Controller()
+    var readyToPlay = false
+    var controller  = Controller()
 
     var scene: GameScene?
-    var physicsBody: SKPhysicsBody?
-    
-    var readyToPlay = false
     
     // load and play the title scene
     // TODO: add an interuptable attract mode scene
     // then fade over to the actual game scene
     override func viewDidLoad() {
+        guard
+            let titleScene = TitleScene(fileNamed: "TitleScene"),
+            let gkScene    = GKScene(fileNamed: "GameScene")
+        else {return}
+        
         super.viewDidLoad()
         
-        if let titleScene = TitleScene(fileNamed: "TitleScene") {
-            if let gkScene = GKScene(fileNamed: "GameScene") {
-                scene = gkScene.rootNode as! GameScene?
-                if scene != nil {
-                    // Set the scale mode to scale to fit the window
-                    scene?.scaleMode      = .aspectFill
-                    titleScene.scaleMode  = .aspectFill
-                    
-                    // Present the actual game scene
-                    if let view = self.view as! SKView? {
-                        // show the title scene
-                        // wait for it to finish
-                        // then start the actual game scene
-                        view.presentScene(titleScene)
-                        self.perform(#selector(GameViewController.startGame), with: nil, afterDelay: 4.0)
-                    }
-                }
+        scene = gkScene.rootNode as! GameScene?
+        if scene != nil {
+            // Set the scale mode to scale to fit the window
+            scene?.scaleMode      = .aspectFill
+            titleScene.scaleMode  = .aspectFill
+            
+            if let view = self.view as! SKView? {
+                // show the title scene
+                // wait for it to finish
+                // then start the actual game scene
+                view.presentScene(titleScene)
+                self.perform(#selector(GameViewController.pesentGame), with: nil, afterDelay: 4.0)
             }
         }
     }
-
-    func startGame() {
+    
+    func pesentGame() {
         // cross fade from the title sequence to the game scene
         let crossFade = SKTransition.crossFade(withDuration: 1.0)
         crossFade.pausesIncomingScene = false
@@ -62,7 +58,6 @@ class GameViewController: UIViewController {
         scene?.startGame()
     }
 
-    
     // controller handling
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches {
@@ -85,18 +80,6 @@ class GameViewController: UIViewController {
             scene?.ball == nil
         else {return}
 
-        if ((scene?.balls)! > 0) { // if no ball in play AND there are any left, launch one
-            scene?.message.isHidden = true
-            scene?.balls -= 1
-            if scene != nil {
-                scene?.ball = Ball(scene: scene!)
-            }
-            scene?.ball?.physicsBody!.categoryBitMask    = ballCategory
-            scene?.ball?.physicsBody!.contactTestBitMask = playfieldCategory | deadlineCategory | playerCategory | brickCategory
-            scene?.ball?.run(scaleToNormal)
-        }
-        else {
-            scene?.newGame()
-        }
+        scene?.newBall()
     }
 }
