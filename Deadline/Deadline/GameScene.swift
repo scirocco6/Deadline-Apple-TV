@@ -9,7 +9,26 @@
 import SpriteKit
 import GameplayKit
 
-public class GameScene: SKScene {
+let playfieldCategory = UInt32(0x01 << 0)
+let ballCategory      = UInt32(0x01 << 1)
+let playerCategory    = UInt32(0x01 << 2)
+let brickCategory     = UInt32(0x01 << 3)
+let deadlineCategory  = UInt32(0x01 << 4)
+
+let scaleToNormal   = SKAction.scale(to: 0.5,   duration: 0.5)
+let scaleToNothing  = SKAction.scale(to: 0.001, duration: 0.2)
+let scaleToInfinity = SKAction.scale(to: 5,     duration: 1.0)
+
+let sound = Sound()
+
+public class GameScene: SKScene, SKPhysicsContactDelegate {
+    lazy var ballHitPlayfield : UInt32 = playfieldCategory | ballCategory
+    lazy var ballHitBrick     : UInt32 = ballCategory      | brickCategory
+    lazy var ballHitDeadline  : UInt32 = deadlineCategory  | ballCategory
+    lazy var brickHitDeadline : UInt32 = deadlineCategory  | brickCategory
+    lazy var ballHitPaddle    : UInt32 = ballCategory      | playerCategory
+    lazy var brickHitPaddle   : UInt32 = brickCategory     | playerCategory
+    
     var initialized = false // deal with sceneDidLoad is called twice due to scene editor bug :(
     
     let message    = SKLabelNode(fontNamed:"Chalkduster")
@@ -17,8 +36,6 @@ public class GameScene: SKScene {
     let wallLeft   = SKLabelNode(fontNamed:"Chalkduster")
 
     var deadline: DeadLine?
-    
-    let sound = Sound()
     
     var score      = 0
     var balls      = 3
@@ -66,6 +83,26 @@ public class GameScene: SKScene {
         addChild(player)
     }
     
+    func startGame() {
+        // playfield
+        physicsWorld.contactDelegate = self
+        
+        physicsBody                  = SKPhysicsBody(edgeLoopFrom: (scene?.frame)!)
+        physicsBody!.friction        = 0.0
+        physicsBody!.categoryBitMask = playfieldCategory
+        scene?.physicsBody           = physicsBody
+        
+        // player
+        player.physicsBody!.categoryBitMask = playerCategory
+        player.physicsBody!.contactTestBitMask = brickCategory
+        
+        // deadline
+        deadline?.physicsBody?.categoryBitMask = deadlineCategory
+        
+
+        newGame()
+    }
+    
     // new game
     func newGame() {
         for (brick, _) in wall {brickDie(brick)}
@@ -106,6 +143,51 @@ public class GameScene: SKScene {
         wallLeft.text = "\(wall.count)"
     }
     
+    // collision resolution
+    public func didBegin(_ contact: SKPhysicsContact) {
+        let all = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+        
+        switch all {
+        case ballHitPlayfield:
+            sound.ballHitWall()
+            ball?.kick()
+            
+        case ballHitDeadline:
+            sound.ballDeathknell()
+            ball?.run(scaleToNothing, completion: {self.die()})
+            
+        case ballHitBrick:
+            let brick = contact.bodyA.categoryBitMask == brickCategory ? contact.bodyA : contact.bodyB
+            (brick.node as! Brick).removeAG()
+            ball?.kick()
+            
+        case brickHitDeadline:
+            let pBody = contact.bodyA.categoryBitMask == brickCategory ? contact.bodyA : contact.bodyB
+            scoreAndRemoveBrick(pBody.node! as! Brick, multiplier: 1)
+            
+        case ballHitPaddle:
+            sound.ballHitPaddle()
+            ball?.kick()
+            
+        case brickHitPaddle:
+            let pBody = contact.bodyA.categoryBitMask == brickCategory ? contact.bodyA : contact.bodyB
+            scoreAndRemoveBrick(pBody.node! as! Brick, multiplier: 2)
+            
+        default:
+            print("default collision")
+            ball?.kick()
+        }
+    }
+    
+    
+    // death of a player
+    func die() {
+        ball?.removeFromParent()
+        ball = nil
+        if balls == 0 {message.text = "Game Over"}
+        message.isHidden = false
+    }
+    
     func brickDie(_ brick: Brick) {
         brick.removeFromParent()
         
@@ -113,6 +195,30 @@ public class GameScene: SKScene {
         if wall.count == 0 {wallUp()}
         
         wallLeft.text   = "\(wall.count)"
+    }
+    
+    // death of a brick
+    func scoreAndRemoveBrick(_ brick: Brick, multiplier: Int) {
+        guard (brick.userData?["dying"]) as? Bool == false else {return} // dying bricks shouldn't die again
+        brick.userData?["dying"] = true
+        
+        let brickValue = brick.score() * multiplier
+        score += brickValue
+        scoreBoard.text = "\(score)"
+        let prize = SKLabelNode(fontNamed:"Chalkduster")
+        prize.text = String(brickValue)
+        prize.position = brick.position
+        prize.fontSize = 10
+        prize.zPosition = -1.0
+        
+        addChild(prize)
+        prize.run(scaleToInfinity, completion: {prize.removeFromParent()})
+        
+        brick.physicsBody?.isDynamic = false // dead bricks can't collide again
+        
+        //sound.run(brickDeathknell)
+        sound.brickDeathknell()
+        brick.run(scaleToNothing, completion: {self.brickDie(brick)})
     }
     
     override public func update(_ currentTime: TimeInterval) { // Called before each frame is rendered
