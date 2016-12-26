@@ -34,7 +34,7 @@ public class GameScene: SKScene {
         // deal with sceneDidLoad is called twice due to scene editor bug :(
         guard initialized == false else {return}
         initialized = true
-        
+
         // sound
         Sound.scene = self
         
@@ -64,6 +64,55 @@ public class GameScene: SKScene {
         //player
         player.position = CGPoint(x: 150 ,y: (scene?.frame.minY)! + 45)
         addChild(player)
+    }
+    
+    // new game
+    func newGame() {
+        for (brick, _) in wall {brickDie(brick)}
+        
+        if wall.count == 0 {wallUp()}
+        
+        score  = 0
+        balls  = 3
+        inPlay = false
+        
+        if ball != nil {
+            ball!.removeFromParent()
+            ball = nil
+        }
+        
+        scoreBoard.text  = "0"
+        message.text     = "Ready Player One"
+        message.isHidden = false
+    }
+    
+    // new wall
+    func wallUp() {
+        let leftX = Int(scene!.frame.minX)
+        let topY = Int(scene!.frame.maxY)
+        
+        for y in stride(from: topY - 50, to: topY - 170, by: -30) {
+            for x in stride(from: leftX + 90, to: leftX + 950, by: 70) {
+                let brick = Brick(x: x, y: y)
+                wall[brick] = true
+                
+                brick.physicsBody!.categoryBitMask    = brickCategory
+                brick.physicsBody!.contactTestBitMask = deadlineCategory
+                
+                addChild(brick)
+            }
+        }
+        
+        wallLeft.text = "\(wall.count)"
+    }
+    
+    func brickDie(_ brick: Brick) {
+        brick.removeFromParent()
+        
+        wall.removeValue(forKey: brick)
+        if wall.count == 0 {wallUp()}
+        
+        wallLeft.text   = "\(wall.count)"
     }
     
     override public func update(_ currentTime: TimeInterval) { // Called before each frame is rendered

@@ -11,19 +11,19 @@ import SpriteKit
 import GameplayKit
 import GameController
 
+let playfieldCategory = UInt32(0x01 << 0)
+let ballCategory      = UInt32(0x01 << 1)
+let playerCategory    = UInt32(0x01 << 2)
+let brickCategory     = UInt32(0x01 << 3)
+let deadlineCategory  = UInt32(0x01 << 4)
+
 class GameViewController: UIViewController, SKPhysicsContactDelegate {
-    let playfieldCategory = UInt32(0x01 << 0)
-    let ballCategory      = UInt32(0x01 << 1)
-    let playerCategory    = UInt32(0x01 << 2)
-    let brickCategory     = UInt32(0x01 << 3)
-    let deadlineCategory  = UInt32(0x01 << 4)
-    
-    lazy var ballHitPlayfield : UInt32 = self.playfieldCategory | self.ballCategory
-    lazy var ballHitBrick     : UInt32 = self.ballCategory      | self.brickCategory
-    lazy var ballHitDeadline  : UInt32 = self.deadlineCategory  | self.ballCategory
-    lazy var brickHitDeadline : UInt32 = self.deadlineCategory  | self.brickCategory
-    lazy var ballHitPaddle    : UInt32 = self.ballCategory      | self.playerCategory
-    lazy var brickHitPaddle   : UInt32 = self.brickCategory     | self.playerCategory
+    lazy var ballHitPlayfield : UInt32 = playfieldCategory | ballCategory
+    lazy var ballHitBrick     : UInt32 = ballCategory      | brickCategory
+    lazy var ballHitDeadline  : UInt32 = deadlineCategory  | ballCategory
+    lazy var brickHitDeadline : UInt32 = deadlineCategory  | brickCategory
+    lazy var ballHitPaddle    : UInt32 = ballCategory      | playerCategory
+    lazy var brickHitPaddle   : UInt32 = brickCategory     | playerCategory
 
     let scaleToNormal   = SKAction.scale(to: 0.5,   duration: 0.5)
     let scaleToNothing  = SKAction.scale(to: 0.001, duration: 0.2)
@@ -88,7 +88,7 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
 
         controller.valueChangedHandler = controllerChangedHandler
         readyToPlay = true
-        newGame()
+        scene?.newGame()
     }
     
     // death of a brick
@@ -112,56 +112,7 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
         
         //sound.run(brickDeathknell)
         scene?.sound.brickDeathknell()
-        brick.run(scaleToNothing, completion: {self.brickDie(brick)})
-    }
-    
-    func brickDie(_ brick: Brick) {
-        brick.removeFromParent()
-        
-        _ = scene?.wall.removeValue(forKey: brick)
-        if scene?.wall.count == 0 {wallUp()}
-        
-        scene?.wallLeft.text   = "\((scene?.wall.count)!)"
-    }
-
-    // new wall
-    func wallUp() {
-        let leftX = Int(scene!.frame.minX)
-        let topY = Int(scene!.frame.maxY)
-        
-        for y in stride(from: topY - 50, to: topY - 170, by: -30) {
-            for x in stride(from: leftX + 90, to: leftX + 950, by: 70) {
-                let brick = Brick(x: x, y: y)
-                scene?.wall[brick] = true
-                
-                brick.physicsBody!.categoryBitMask    = brickCategory
-                brick.physicsBody!.contactTestBitMask = deadlineCategory
-
-                scene?.addChild(brick)
-            }
-        }
-        
-        scene?.wallLeft.text = "\((scene?.wall.count)!)"
-    }
-    
-    // new game
-    func newGame() {
-        for (brick, _) in (scene?.wall)! {brickDie(brick)}
-        
-        if scene?.wall.count == 0 {wallUp()}
-        
-        scene?.score  = 0
-        scene?.balls  = 3
-        scene?.inPlay = false
-        
-        if scene?.ball != nil {
-            scene?.ball!.removeFromParent()
-            scene?.ball = nil
-        }
-        
-        scene?.scoreBoard.text  = "0"
-        scene?.message.text     = "Ready Player One"
-        scene?.message.isHidden = false
+        brick.run(scaleToNothing, completion: {self.scene?.brickDie(brick)})
     }
 
     // collision resolution
@@ -241,7 +192,7 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
             scene?.ball?.run(scaleToNormal)
         }
         else {
-            newGame()
+            scene?.newGame()
         }
     }
 }
