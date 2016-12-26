@@ -44,7 +44,6 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
     
     var controller = Controller()
 
-    var gkScene: GKScene?
     var scene: GameScene?
     var physicsBody: SKPhysicsBody?
     
@@ -56,32 +55,27 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let titleScene = GKScene(fileNamed: "TitleScene")
-        gkScene = GKScene(fileNamed: "GameScene")
-
-        if gkScene != nil {
-            // Get the SKScene from the loaded GKScene
-            scene = gkScene?.rootNode as! GameScene?
-            if scene != nil {
-                // Copy gameplay related content over to the scene
-                scene?.entities = (gkScene?.entities)!
-                scene?.graphs = (gkScene?.graphs)!
-                
-                let title = titleScene?.rootNode as! GameScene
-                // Set the scale mode to scale to fit the window
-                scene?.scaleMode = .aspectFill
-                title.scaleMode  = .aspectFill
-                
-                // Present the actual game scene
-                if let view = self.view as! SKView? {
-                    view.presentScene(title)
-                    self.perform(#selector(GameViewController.startGame), with: nil, afterDelay: 4.0)
+        if let titleScene = TitleScene(fileNamed: "TitleScene") {
+            if let gkScene = GKScene(fileNamed: "GameScene") {
+                scene = gkScene.rootNode as! GameScene?
+                if scene != nil {
+                    // Set the scale mode to scale to fit the window
+                    scene?.scaleMode = .aspectFill
+                    titleScene.scaleMode  = .aspectFill
+                    
+                    // Present the actual game scene
+                    if let view = self.view as! SKView? {
+                        //view.presentScene(title)
+                        view.presentScene(titleScene)
+                        self.perform(#selector(GameViewController.startGame), with: nil, afterDelay: 4.0)
+                    }
                 }
             }
         }
     }
 
     func startGame() {
+        // cross fade from the title sequence to the game scene
         let crossFade = SKTransition.crossFade(withDuration: 1.0)
         crossFade.pausesIncomingScene = false
         crossFade.pausesOutgoingScene = false
@@ -126,14 +120,8 @@ class GameViewController: UIViewController, SKPhysicsContactDelegate {
         scene?.addChild(wallLeft)
         
         // deadline
-        let deadline = SKShapeNode(rect: CGRect(x: (scene?.frame.minX)!, y: (scene?.frame.minY)!, width: (scene?.frame.maxX)! - (scene?.frame.minX)!, height: 2))
-        deadline.fillColor = UIColor.red
-        deadline.strokeColor = UIColor.red
+        scene?.deadline?.physicsBody?.categoryBitMask = deadlineCategory
 
-        deadline.physicsBody = SKPhysicsBody(edgeLoopFrom: deadline.frame)
-        deadline.physicsBody?.categoryBitMask = deadlineCategory
-        scene?.addChild(deadline)
-        
         controller.valueChangedHandler = controllerChangedHandler
         readyToPlay = true
         newGame()
