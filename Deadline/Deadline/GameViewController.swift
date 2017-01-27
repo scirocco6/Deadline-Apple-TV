@@ -39,12 +39,12 @@ class GameViewController: UIViewController {
                 // wait for it to finish
                 // then start the actual game scene
                 view.presentScene(titleScene)
-                self.perform(#selector(GameViewController.pesentGame), with: nil, afterDelay: 4.0)
+                self.perform(#selector(GameViewController.presentGame), with: nil, afterDelay: 4.0)
             }
         }
     }
     
-    func pesentGame() {
+    func presentGame() {
         // cross fade from the title sequence to the game scene
         let crossFade = SKTransition.crossFade(withDuration: 1.0)
         crossFade.pausesIncomingScene = false
