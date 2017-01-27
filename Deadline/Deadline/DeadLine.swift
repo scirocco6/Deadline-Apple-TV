@@ -8,35 +8,35 @@
 
 import SpriteKit
 
-class DeadLine: SKShapeNode {
-    var minX:  CGFloat  = 0
-    var maxX:  CGFloat  = 0
+class DeadLine: SKSpriteNode {
+
+    let texture1 = SKTexture(imageNamed: "Lightning1")
+    let texture2 = SKTexture(imageNamed: "Lightning2")
 
     init(scene: SKScene) {
-        super.init()
+        super.init(texture: texture1, color: UIColor.clear, size: CGSize(width: 1022.0, height: texture1.size().height))
+        self.physicsBody = SKPhysicsBody(rectangleOf: self.size)
+        self.physicsBody!.usesPreciseCollisionDetection = true
+        self.physicsBody!.affectedByGravity = false
 
-        minX = scene.frame.minX
-        maxX = scene.frame.maxX
-
-        let rect = CGRect(x: scene.frame.minX, y: scene.frame.minY, width: scene.frame.maxX - scene.frame.minX, height: 2)
-        self.path = CGPath(rect: rect, transform: nil)
+        self.position = CGPoint(x: 1, y: scene.frame.minY + 40)
         
-        randomizeColor()
-        
-        self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
+        let spark = SKAction.animate(with: [texture1, texture2], timePerFrame:0.3)
+        let animation = SKAction.repeatForever(spark)
+        run(animation)
         
         scene.addChild(self)
     }
     
     func randomizeColor() {
-        let red   = CGFloat(drand48())
-        let green = CGFloat(drand48())
-        let blue  = CGFloat(drand48())
-        
-        let color = UIColor(red: red, green: green, blue: blue, alpha: 1.0)
-        
-        strokeColor = color
-        fillColor   = color
+//        let red   = CGFloat(drand48())
+//        let green = CGFloat(drand48())
+//        let blue  = CGFloat(drand48())
+//        
+//        let color = UIColor(red: red, green: green, blue: blue, alpha: 1.0)
+//        
+//        strokeColor = color
+//        fillColor   = color
     }
     
     // more shiny boilerplate
