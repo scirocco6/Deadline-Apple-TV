@@ -180,8 +180,6 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // death of a player
     func die() {
-        deadline?.randomizeColor()
-        
         ball?.removeFromParent()
         ball = nil
         if balls == 0 {message.text = "Game Over"}
@@ -201,8 +199,6 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
     func scoreAndRemoveBrick(_ brick: Brick, multiplier: Int) {
         guard (brick.userData?["dying"]) as? Bool == false else {return} // dying bricks shouldn't die again
         brick.userData?["dying"] = true
-        
-        deadline?.randomizeColor()
 
         let brickValue = brick.score() * multiplier
         score += brickValue

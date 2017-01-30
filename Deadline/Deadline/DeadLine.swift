@@ -12,6 +12,12 @@ class DeadLine: SKSpriteNode {
 
     let texture1 = SKTexture(imageNamed: "Lightning1")
     let texture2 = SKTexture(imageNamed: "Lightning2")
+    let texture3 = SKTexture(imageNamed: "Lightning3")
+    let texture4 = SKTexture(imageNamed: "Lightning4")
+    let texture5 = SKTexture(imageNamed: "Lightning5")
+    let texture6 = SKTexture(imageNamed: "Lightning6")
+    let texture7 = SKTexture(imageNamed: "Lightning7")
+    let texture8 = SKTexture(imageNamed: "Lightning8")
 
     init(scene: SKScene) {
         super.init(texture: texture1, color: UIColor.clear, size: CGSize(width: 1022.0, height: texture1.size().height))
@@ -21,24 +27,13 @@ class DeadLine: SKSpriteNode {
 
         self.position = CGPoint(x: 1, y: scene.frame.minY + 40)
         
-        let spark = SKAction.animate(with: [texture1, texture2], timePerFrame:0.3)
+        let spark = SKAction.animate(with: [texture1, texture2, texture3, texture4, texture5, texture6, texture7, texture8], timePerFrame:0.04)
         let animation = SKAction.repeatForever(spark)
         run(animation)
         
         scene.addChild(self)
     }
-    
-    func randomizeColor() {
-//        let red   = CGFloat(drand48())
-//        let green = CGFloat(drand48())
-//        let blue  = CGFloat(drand48())
-//        
-//        let color = UIColor(red: red, green: green, blue: blue, alpha: 1.0)
-//        
-//        strokeColor = color
-//        fillColor   = color
-    }
-    
+
     // more shiny boilerplate
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
