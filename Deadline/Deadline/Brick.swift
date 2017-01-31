@@ -27,6 +27,7 @@ class Brick: SKSpriteNode {
         self.physicsBody!.usesPreciseCollisionDetection = true
         
         self.position = CGPoint(x: x, y: y)
+        self.zPosition = -5
     }
     
     func removeAG() {
