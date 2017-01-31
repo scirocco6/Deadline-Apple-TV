@@ -64,15 +64,15 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // scoreboard
         scoreBoard.text     = ""
-        scoreBoard.fontSize = 40
-        scoreBoard.position = CGPoint(x: (scene?.frame.minX)! + 15, y: (scene?.frame.minY)! + 7)
+        scoreBoard.fontSize = 30
+        scoreBoard.position = CGPoint(x: (scene?.frame.minX)! + 15, y: (scene?.frame.maxY)! - 30)
         scoreBoard.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         addChild(scoreBoard)
         
         // wallLeft
         wallLeft.text = ""
-        wallLeft.fontSize = 40
-        wallLeft.position = CGPoint(x:(scene?.frame.maxX)! - 45, y: (scene?.frame.minY)! + 7)
+        wallLeft.fontSize = 30
+        wallLeft.position = CGPoint(x:(scene?.frame.maxX)! - 45, y: (scene?.frame.maxY)! - 30)
         addChild(wallLeft)
         
         // deadline
