@@ -19,6 +19,7 @@
 		4F5E46141E107EC000547FF4 /* DeadLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5E46131E107EC000547FF4 /* DeadLine.swift */; };
 		4F7F66DB1DCA6E36008D4269 /* Chalkduster.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4F7F66D91DCA6D9A008D4269 /* Chalkduster.ttf */; };
 		4F8FF3C71DD2BD5200D612FF /* glass_smash.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4F8FF3C61DD2BD5200D612FF /* glass_smash.mp3 */; };
+		4FA926041E40237E00AD557F /* DeathContactLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA926031E40237E00AD557F /* DeathContactLine.swift */; };
 		4FAA9E2B1DFA44CD004EF048 /* Royalty Free Music Track - Dire Space Emergency Chiptune.webloc in Resources */ = {isa = PBXBuildFile; fileRef = 4FAA9E2A1DFA44CD004EF048 /* Royalty Free Music Track - Dire Space Emergency Chiptune.webloc */; };
 		4FAA9E2D1DFA44D4004EF048 /* SpaceEmergency.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4FAA9E2C1DFA44D4004EF048 /* SpaceEmergency.mp3 */; };
 		4FAA9E311DFA4783004EF048 /* BackgroundMusic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA9E301DFA4783004EF048 /* BackgroundMusic.swift */; };
@@ -68,6 +69,7 @@
 		4F5E46131E107EC000547FF4 /* DeadLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeadLine.swift; sourceTree = "<group>"; };
 		4F7F66D91DCA6D9A008D4269 /* Chalkduster.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Chalkduster.ttf; sourceTree = "<group>"; };
 		4F8FF3C61DD2BD5200D612FF /* glass_smash.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = glass_smash.mp3; sourceTree = "<group>"; };
+		4FA926031E40237E00AD557F /* DeathContactLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeathContactLine.swift; sourceTree = "<group>"; };
 		4FAA9E2A1DFA44CD004EF048 /* Royalty Free Music Track - Dire Space Emergency Chiptune.webloc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Royalty Free Music Track - Dire Space Emergency Chiptune.webloc"; sourceTree = "<group>"; };
 		4FAA9E2C1DFA44D4004EF048 /* SpaceEmergency.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = SpaceEmergency.mp3; sourceTree = "<group>"; };
 		4FAA9E301DFA4783004EF048 /* BackgroundMusic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundMusic.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				4FAFFDA91DD126880010B471 /* Controller.swift */,
 				4F5E3A9B1E10451C00BE7B82 /* Sound.swift */,
 				4FAA9E301DFA4783004EF048 /* BackgroundMusic.swift */,
+				4FA926031E40237E00AD557F /* DeathContactLine.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -400,6 +403,7 @@
 				4FF7CBBA1DCD3EA000515EB7 /* Brick.swift in Sources */,
 				4FAA9E311DFA4783004EF048 /* BackgroundMusic.swift in Sources */,
 				4FF7CBB81DCD3E8600515EB7 /* Ball.swift in Sources */,
+				4FA926041E40237E00AD557F /* DeathContactLine.swift in Sources */,
 				4FE796A11DCA61ED00A32A37 /* GameScene.swift in Sources */,
 				4FE796A31DCA61ED00A32A37 /* GameViewController.swift in Sources */,
 				4FF7CBBC1DCD3EA900515EB7 /* Player.swift in Sources */,

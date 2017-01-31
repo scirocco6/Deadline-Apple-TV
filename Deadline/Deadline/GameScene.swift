@@ -36,6 +36,7 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
     let wallLeft   = SKLabelNode(fontNamed:"Chalkduster")
 
     var deadline: DeadLine?
+    var contactLine: DeathContactLine?
     
     var score      = 0
     var balls      = 3
@@ -76,7 +77,8 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(wallLeft)
         
         // deadline
-        deadline = DeadLine(scene: self)
+        deadline = DeadLine(scene: self)       // the for show special effect
+        contactLine = DeathContactLine(scene: self) // the actual line used to determine contact
         
         //player
         player.position = CGPoint(x: 150 ,y: (scene?.frame.minY)! + 45)
@@ -97,7 +99,7 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
         player.physicsBody!.contactTestBitMask = brickCategory
         
         // deadline
-        deadline?.physicsBody?.categoryBitMask = deadlineCategory
+        contactLine?.physicsBody?.categoryBitMask = deadlineCategory
 
         newGame()
     }

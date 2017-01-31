@@ -18,14 +18,12 @@ class DeadLine: SKSpriteNode {
     let texture6 = SKTexture(imageNamed: "Lightning6")
     let texture7 = SKTexture(imageNamed: "Lightning7")
     let texture8 = SKTexture(imageNamed: "Lightning8")
-
+    
     init(scene: SKScene) {
-        super.init(texture: texture1, color: UIColor.clear, size: CGSize(width: 1022.0, height: texture1.size().height))
-        self.physicsBody = SKPhysicsBody(rectangleOf: self.size)
-        self.physicsBody!.usesPreciseCollisionDetection = true
-        self.physicsBody!.affectedByGravity = false
-
-        self.position = CGPoint(x: 1, y: scene.frame.minY + 40)
+        super.init(texture: texture1, color: UIColor.red, size: CGSize(width: 1022.0, height: texture1.size().height))
+        
+        // the pretty graphical lightning, "deadline", that gives the game it's name
+        self.position = CGPoint(x: 1, y: scene.frame.minY + 20)
         
         let spark = SKAction.animate(with: [texture1, texture2, texture3, texture4, texture5, texture6, texture7, texture8], timePerFrame:0.04)
         let animation = SKAction.repeatForever(spark)
