@@ -32,6 +32,7 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
     var initialized = false // deal with sceneDidLoad is called twice due to scene editor bug :(
     
     let message    = SKLabelNode(fontNamed:"Chalkduster")
+    let lives      = SKLabelNode(fontNamed:"Chalkduster")
     let scoreBoard = SKLabelNode(fontNamed:"Chalkduster")
     let wallLeft   = SKLabelNode(fontNamed:"Chalkduster")
 
@@ -59,9 +60,16 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
         // message
         message.text      = "Ready Player One"
         message.fontSize  = 65
-        message.position  = CGPoint(x:(scene?.frame.midX)!, y:(scene?.frame.midY)!)
+        message.position  = CGPoint(x:(scene?.frame.midX)!, y:(scene?.frame.midY)! + 35)
         message.zPosition = 2.0
         addChild(message)
+        
+        // lives
+        lives.text      = "3 Lives Left"
+        lives.fontSize  = 65
+        lives.position  = CGPoint(x:(scene?.frame.midX)!, y:(scene?.frame.midY)! - 55)
+        lives.zPosition = 2.0
+        addChild(lives)
         
         // scoreboard
         scoreBoard.text     = ""
@@ -120,8 +128,11 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         scoreBoard.text  = "0"
+        
         message.text     = "Ready Player One"
         message.isHidden = false
+        lives.text       = "\(balls) Lives Left"
+        lives.isHidden   = false
     }
     
     // new wall
@@ -185,6 +196,12 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
         ball?.removeFromParent()
         ball = nil
         if balls == 0 {message.text = "Game Over"}
+        
+        if balls > 0 {
+            lives.text       = "\(balls) Lives Left"
+            lives.isHidden   = false
+        }
+        
         message.isHidden = false
     }
     
@@ -224,6 +241,8 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
     func newBall() {
         if (balls > 0) { // if no ball in play AND there are any left, launch one
             message.isHidden = true
+            lives.isHidden   = true
+            
             balls -= 1
             ball = Ball(scene: self)
 
