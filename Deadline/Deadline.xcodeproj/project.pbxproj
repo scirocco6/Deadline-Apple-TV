@@ -37,6 +37,7 @@
 		4FF7CBB81DCD3E8600515EB7 /* Ball.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF7CBB71DCD3E8600515EB7 /* Ball.swift */; };
 		4FF7CBBA1DCD3EA000515EB7 /* Brick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF7CBB91DCD3EA000515EB7 /* Brick.swift */; };
 		4FF7CBBC1DCD3EA900515EB7 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF7CBBB1DCD3EA900515EB7 /* Player.swift */; };
+		4FFD26A51E426E0300E906AA /* 1Up.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4FFD26A41E426E0300E906AA /* 1Up.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +94,7 @@
 		4FF7CBB71DCD3E8600515EB7 /* Ball.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ball.swift; sourceTree = "<group>"; };
 		4FF7CBB91DCD3EA000515EB7 /* Brick.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brick.swift; sourceTree = "<group>"; };
 		4FF7CBBB1DCD3EA900515EB7 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		4FFD26A41E426E0300E906AA /* 1Up.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 1Up.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +171,7 @@
 		4F43993E1DF0DFEB00A5BD29 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				4FFD26A41E426E0300E906AA /* 1Up.mp3 */,
 				4F582A501DF10991002A30C8 /* brick_hit_paddle.mp3 */,
 				4F582A4C1DF0FDA0002A30C8 /* ball_hits_deadline.mp3 */,
 				4F582A4A1DF0FC96002A30C8 /* brick_learns_gravity.mp3 */,
@@ -371,6 +374,7 @@
 				4F582A511DF10991002A30C8 /* brick_hit_paddle.mp3 in Resources */,
 				4F582A4B1DF0FC96002A30C8 /* brick_learns_gravity.mp3 in Resources */,
 				4FE7969F1DCA61ED00A32A37 /* Game.xcassets in Resources */,
+				4FFD26A51E426E0300E906AA /* 1Up.mp3 in Resources */,
 				4FF7CBB61DCD3CF600515EB7 /* GameScene.sks in Resources */,
 				4FE796A61DCA61ED00A32A37 /* Main.storyboard in Resources */,
 				4FAA9E2D1DFA44D4004EF048 /* SpaceEmergency.mp3 in Resources */,

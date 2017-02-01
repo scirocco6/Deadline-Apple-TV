@@ -248,8 +248,8 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
         nextLife += 20000
         balls += 1
         
-        // next life sound
-
+        sound.oneUp()
+        
         let oneUp = SKLabelNode(fontNamed:"Chalkduster")
         oneUp.text = "1up"
         oneUp.fontColor = UIColor.green

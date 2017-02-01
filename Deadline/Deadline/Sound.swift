@@ -10,6 +10,8 @@ import Foundation
 import SpriteKit
 
 class Sound {
+    let oneUpSound             = SKAction.playSoundFileNamed("1Up.mp3",                  waitForCompletion: false)
+
     let ballHitPaddleSound   = SKAction.playSoundFileNamed("ball_hits_paddle.mp3",     waitForCompletion: false)
     let ballHitWallSound     = SKAction.playSoundFileNamed("ball_hit_wall.mp3",        waitForCompletion: false)
     let ballDeathknellSound  = SKAction.playSoundFileNamed("ball_hits_deadline.mp3",   waitForCompletion: false)
@@ -29,6 +31,7 @@ class Sound {
         soundChannels.insert(channel, at: 0)
     }
     
+    func oneUp()           {play(oneUpSound)}
     func ballHitPaddle()   {play(ballHitPaddleSound)}
     func ballHitWall()     {play(ballHitWallSound)}
     func ballDeathknell()  {play(ballDeathknellSound)}
