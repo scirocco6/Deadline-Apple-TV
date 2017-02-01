@@ -41,6 +41,7 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var score      = 0
     var balls      = 3
+    var nextLife   = 20000
     var wall       = [Brick: Bool]()
     var inPlay     = false
     
@@ -118,9 +119,10 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if wall.count == 0 {wallUp()}
         
-        score  = 0
-        balls  = 3
-        inPlay = false
+        score    = 0
+        nextLife = 20000
+        balls    = 3
+        inPlay   = false
         
         if ball != nil {
             ball!.removeFromParent()
@@ -195,6 +197,8 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
     func die() {
         ball?.removeFromParent()
         ball = nil
+        balls -= 1
+
         if balls == 0 {message.text = "Game Over"}
         
         if balls > 0 {
@@ -222,6 +226,8 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
         let brickValue = brick.score() * multiplier
         score += brickValue
         scoreBoard.text = "\(score)"
+        if score > nextLife {oneUp(brick.position)}
+        
         let prize = SKLabelNode(fontNamed:"Chalkduster")
         prize.text = String(brickValue)
         prize.position = brick.position
@@ -238,12 +244,31 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
         brick.run(scaleToNothing, completion: {self.brickDie(brick)})
     }
     
+    func oneUp(_ position: CGPoint) {
+        nextLife += 20000
+        balls += 1
+        
+        // next life sound
+
+        let oneUp = SKLabelNode(fontNamed:"Chalkduster")
+        oneUp.text = "1up"
+        oneUp.fontColor = UIColor.green
+        oneUp.position = position
+        oneUp.fontSize = 10
+        oneUp.zPosition = -1.0
+        oneUp.physicsBody = SKPhysicsBody()
+        oneUp.physicsBody?.velocity = CGVector(dx: 0, dy: 100)
+        oneUp.physicsBody?.affectedByGravity = false
+        
+        addChild(oneUp)
+        oneUp.run(scaleToInfinity, completion: {oneUp.removeFromParent()})
+    }
+    
     func newBall() {
         if (balls > 0) { // if no ball in play AND there are any left, launch one
             message.isHidden = true
             lives.isHidden   = true
             
-            balls -= 1
             ball = Ball(scene: self)
 
             ball?.physicsBody!.categoryBitMask    = ballCategory
@@ -252,19 +277,6 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         else {
             newGame()
-        }
-    }
-    
-    override public func update(_ currentTime: TimeInterval) { // Called before each frame is rendered
-        
-        // Initialize _lastUpdateTime if it has not already been
-        if (self.lastUpdateTime == 0) {self.lastUpdateTime = currentTime}
-        
-        // Calculate time since last update
-        let dt = currentTime - self.lastUpdateTime
-        if dt > 0.1 {
-//            deadline?.randomizeColor()
-            self.lastUpdateTime = currentTime
         }
     }
 }
