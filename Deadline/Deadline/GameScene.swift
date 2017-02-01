@@ -80,7 +80,7 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
         deadline = DeadLine(scene: self)       // the for show special effect
         contactLine = DeathContactLine(scene: self) // the actual line used to determine contact
         
-        //player
+        // player
         player.position = CGPoint(x: 150 ,y: (scene?.frame.minY)! + 45)
         addChild(player)
     }
