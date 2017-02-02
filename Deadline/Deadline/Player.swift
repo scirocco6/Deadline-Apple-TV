@@ -9,9 +9,6 @@
 import SpriteKit
 
 class Player: SKSpriteNode {
-    //let image = "edgyPaddle"
-    let image = "glowyPaddle"
-
     let texture0 = SKTexture(imageNamed: "glowyPaddle0")
     let texture1 = SKTexture(imageNamed: "glowyPaddle1")
     
