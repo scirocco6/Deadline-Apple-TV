@@ -142,8 +142,8 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
         let leftX = Int(scene!.frame.minX)
         let topY = Int(scene!.frame.maxY)
         
-        for y in stride(from: topY - 50, to: topY - 170, by: -30) {
-            for x in stride(from: leftX + 90, to: leftX + 950, by: 70) {
+        for y in stride(from: topY - 50, to: topY - 190, by: -40) {
+            for x in stride(from: leftX + 80, to: leftX + 950, by: 70) {
                 let brick = Brick(x: x, y: y)
                 wall[brick] = true
                 

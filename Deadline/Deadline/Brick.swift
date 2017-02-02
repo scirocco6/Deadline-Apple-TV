@@ -9,6 +9,7 @@
 import SpriteKit
 
 class Brick: SKSpriteNode {
+    //let agTexture      = SKTexture(imageNamed: "rainbow_brick")
     let agTexture      = SKTexture(imageNamed: "rainbow_brick_glow")
     let fallingTexture = SKTexture(imageNamed: "rainbow_brick_fall")
     
@@ -20,7 +21,7 @@ class Brick: SKSpriteNode {
         self.userData = NSMutableDictionary()
         self.userData?["dying"] = false
         
-        self.physicsBody = SKPhysicsBody(rectangleOf: self.size)
+        self.physicsBody = SKPhysicsBody(rectangleOf: fallingTexture.size()) // use size without glow for collision
         
         self.physicsBody!.isDynamic = true
         self.physicsBody!.affectedByGravity = false
