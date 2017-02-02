@@ -9,16 +9,19 @@
 import SpriteKit
 
 class Player: SKSpriteNode {
-    let image = "edgyPaddle"
+    //let image = "edgyPaddle"
+    let image = "glowyPaddle"
 
+    let texture0 = SKTexture(imageNamed: "glowyPaddle0")
+    let texture1 = SKTexture(imageNamed: "glowyPaddle1")
+    
     init() {
-        let texture = SKTexture(imageNamed: image)
-        super.init(texture: texture, color: UIColor.clear, size: texture.size())
+        super.init(texture: texture1, color: UIColor.clear, size: texture1.size())
         
         self.setScale(0.5)
 
         //self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
-        self.physicsBody = SKPhysicsBody(texture: texture, size: CGSize(width: self.size.width, height: self.size.height) )
+        self.physicsBody = SKPhysicsBody(texture: texture0, size: CGSize(width: self.size.width, height: self.size.height) )
         
         self.physicsBody!.friction       = 0.5
         self.physicsBody!.isDynamic      = false

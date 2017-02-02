@@ -9,8 +9,8 @@
 import SpriteKit
 
 class Brick: SKSpriteNode {
-    let agTexture      = SKTexture(imageNamed: "rainbow_brick")
-    let fallingTexture = SKTexture(imageNamed: "heavy_brick")
+    let agTexture      = SKTexture(imageNamed: "rainbow_brick_glow")
+    let fallingTexture = SKTexture(imageNamed: "rainbow_brick_fall")
     
     let player = Sound()
     
