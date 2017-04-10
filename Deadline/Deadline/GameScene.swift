@@ -66,7 +66,7 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(message)
         
         // lives
-        lives.text      = "3 Lives Left"
+        lives.text      = "3 Balls Left"
         lives.fontSize  = 65
         lives.position  = CGPoint(x:(scene?.frame.midX)!, y:(scene?.frame.midY)! - 55)
         lives.zPosition = 2.0
@@ -133,7 +133,7 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
         
         message.text     = "Ready Player One"
         message.isHidden = false
-        lives.text       = "\(balls) Lives Left"
+        lives.text       = "\(balls) Balls Left"
         lives.isHidden   = false
     }
     
@@ -197,13 +197,17 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
     func die() {
         ball?.removeFromParent()
         ball = nil
-        balls -= 1
 
         if balls == 0 {message.text = "Game Over"}
         
         if balls > 0 {
-            lives.text       = "\(balls) Lives Left"
-            lives.isHidden   = false
+            if balls == 1 {
+                lives.text = "Last Ball!"
+            }
+            else {
+                lives.text = "\(balls) Balls Left"
+            }
+            lives.isHidden = false
         }
         
         message.isHidden = false
@@ -266,6 +270,8 @@ public class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func newBall() {
         if (balls > 0) { // if no ball in play AND there are any left, launch one
+            balls -= 1
+
             message.isHidden = true
             lives.isHidden   = true
             
