@@ -44,7 +44,7 @@ class GameViewController: UIViewController {
         }
     }
     
-    func presentGame() {
+    @objc func presentGame() {
         // cross fade from the title sequence to the game scene
         let crossFade = SKTransition.crossFade(withDuration: 1.0)
         crossFade.pausesIncomingScene = false
