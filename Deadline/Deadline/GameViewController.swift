@@ -9,11 +9,11 @@
 import UIKit
 import SpriteKit
 import GameplayKit
-import GameController
+//import GameController
 
 class GameViewController: UIViewController {
     var readyToPlay = false
-    var controller  = Controller()
+//    var controller  = Controller()
 
     var scene: GameScene?
     
@@ -51,8 +51,6 @@ class GameViewController: UIViewController {
         crossFade.pausesOutgoingScene = false
         
         (self.view as! SKView?)?.presentScene(scene!, transition: crossFade)
-        
-        controller.valueChangedHandler = controllerChangedHandler
         readyToPlay = true
         
         scene?.startGame()
@@ -72,14 +70,10 @@ class GameViewController: UIViewController {
         let newpos = CGPoint(x: x, y: pos.y)
         scene?.player.moveTo(newpos)
     }
-
-    func controllerChangedHandler(which: GCMicroGamepad, what: GCControllerElement) -> () {
-        guard
-            let button = what as? GCControllerButtonInput,
-            button.isPressed == false,
-            scene?.ball == nil
-        else {return}
-
-        scene?.newBall()
+        
+    override func pressesEnded(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+        if scene?.ball == nil {
+            scene?.newBall()
+        }
     }
 }
