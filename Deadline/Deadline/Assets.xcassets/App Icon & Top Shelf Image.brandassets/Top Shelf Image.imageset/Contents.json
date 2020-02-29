@@ -2,8 +2,13 @@
   "images" : [
     {
       "idiom" : "tv",
-      "filename" : "deadline 1920x720.png",
+      "filename" : "TopShelfImage.png",
       "scale" : "1x"
+    },
+    {
+      "scale" : "2x",
+      "filename" : "TopShelfImage@2x.png",
+      "idiom" : "tv"
     }
   ],
   "info" : {

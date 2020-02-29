@@ -1,0 +1,23 @@
+{
+  "layers" : [
+    {
+      "filename" : "deadline front.imagestacklayer"
+    },
+    {
+      "filename" : "deadline middle.imagestacklayer"
+    },
+    {
+      "filename" : "deadline background.imagestacklayer"
+    }
+  ],
+  "properties" : {
+    "canvasSize" : {
+      "width" : 400,
+      "height" : 240
+    }
+  },
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

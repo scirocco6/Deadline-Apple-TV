@@ -10,6 +10,7 @@
 		4F275DE51DF0EA5A00E84E14 /* ball_hit_wall.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4F275DE41DF0EA5A00E84E14 /* ball_hit_wall.mp3 */; };
 		4F275DE71DF0ECD700E84E14 /* brick_hits_deadline2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4F275DE61DF0ECD700E84E14 /* brick_hits_deadline2.mp3 */; };
 		4F43993D1DF0DFE000A5BD29 /* ball_hits_paddle.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4F43993C1DF0DFE000A5BD29 /* ball_hits_paddle.mp3 */; };
+		4F4EBB15240A086E00D3F147 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F4EBB14240A086E00D3F147 /* Assets.xcassets */; };
 		4F582A4B1DF0FC96002A30C8 /* brick_learns_gravity.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4F582A4A1DF0FC96002A30C8 /* brick_learns_gravity.mp3 */; };
 		4F582A4D1DF0FDA0002A30C8 /* ball_hits_deadline.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4F582A4C1DF0FDA0002A30C8 /* ball_hits_deadline.mp3 */; };
 		4F582A4F1DF107FA002A30C8 /* ball_hits_falling_brick.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4F582A4E1DF107FA002A30C8 /* ball_hits_falling_brick.mp3 */; };
@@ -31,7 +32,6 @@
 		4FE796A11DCA61ED00A32A37 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE796A01DCA61ED00A32A37 /* GameScene.swift */; };
 		4FE796A31DCA61ED00A32A37 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE796A21DCA61ED00A32A37 /* GameViewController.swift */; };
 		4FE796A61DCA61ED00A32A37 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4FE796A41DCA61ED00A32A37 /* Main.storyboard */; };
-		4FE796A81DCA61ED00A32A37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FE796A71DCA61ED00A32A37 /* Assets.xcassets */; };
 		4FE796B31DCA61ED00A32A37 /* DeadlineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE796B21DCA61ED00A32A37 /* DeadlineTests.swift */; };
 		4FE796BE1DCA61ED00A32A37 /* DeadlineUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE796BD1DCA61ED00A32A37 /* DeadlineUITests.swift */; };
 		4FF7CBB61DCD3CF600515EB7 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4FF7CBB51DCD3CF600515EB7 /* GameScene.sks */; };
@@ -62,6 +62,7 @@
 		4F275DE41DF0EA5A00E84E14 /* ball_hit_wall.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ball_hit_wall.mp3; sourceTree = "<group>"; };
 		4F275DE61DF0ECD700E84E14 /* brick_hits_deadline2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = brick_hits_deadline2.mp3; sourceTree = "<group>"; };
 		4F43993C1DF0DFE000A5BD29 /* ball_hits_paddle.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ball_hits_paddle.mp3; sourceTree = "<group>"; };
+		4F4EBB14240A086E00D3F147 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4F582A4A1DF0FC96002A30C8 /* brick_learns_gravity.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = brick_learns_gravity.mp3; sourceTree = "<group>"; };
 		4F582A4C1DF0FDA0002A30C8 /* ball_hits_deadline.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ball_hits_deadline.mp3; sourceTree = "<group>"; };
 		4F582A4E1DF107FA002A30C8 /* ball_hits_falling_brick.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ball_hits_falling_brick.mp3; sourceTree = "<group>"; };
@@ -84,7 +85,6 @@
 		4FE796A01DCA61ED00A32A37 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		4FE796A21DCA61ED00A32A37 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		4FE796A51DCA61ED00A32A37 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		4FE796A71DCA61ED00A32A37 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4FE796A91DCA61ED00A32A37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4FE796AE1DCA61ED00A32A37 /* DeadlineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DeadlineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FE796B21DCA61ED00A32A37 /* DeadlineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadlineTests.swift; sourceTree = "<group>"; };
@@ -164,8 +164,8 @@
 				4FAA9E291DFA44AF004EF048 /* Music */,
 				4F43993E1DF0DFEB00A5BD29 /* Sounds */,
 				4F7F66DA1DCA6DA9008D4269 /* Fonts */,
-				4FE796A71DCA61ED00A32A37 /* Assets.xcassets */,
 				4FE7969E1DCA61ED00A32A37 /* Game.xcassets */,
+				4F4EBB14240A086E00D3F147 /* Assets.xcassets */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -385,8 +385,8 @@
 				4FF7CBB61DCD3CF600515EB7 /* GameScene.sks in Resources */,
 				4FE796A61DCA61ED00A32A37 /* Main.storyboard in Resources */,
 				4FAA9E2D1DFA44D4004EF048 /* SpaceEmergency.mp3 in Resources */,
+				4F4EBB15240A086E00D3F147 /* Assets.xcassets in Resources */,
 				4F43993D1DF0DFE000A5BD29 /* ball_hits_paddle.mp3 in Resources */,
-				4FE796A81DCA61ED00A32A37 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -583,6 +583,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = SP5J495KSD;
 				INFOPLIST_FILE = Deadline/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -599,6 +600,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = SP5J495KSD;
 				INFOPLIST_FILE = Deadline/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

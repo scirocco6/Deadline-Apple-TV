@@ -1,0 +1,18 @@
+{
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "images" : [
+    {
+      "scale" : "1x",
+      "filename" : "deadline front.png",
+      "idiom" : "tv"
+    },
+    {
+      "idiom" : "tv",
+      "filename" : "deadline front@2x.png",
+      "scale" : "2x"
+    }
+  ]
+}
