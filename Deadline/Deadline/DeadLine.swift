@@ -23,7 +23,7 @@ class DeadLine: SKSpriteNode {
         super.init(texture: texture1, color: UIColor.red, size: CGSize(width: 1022.0, height: texture1.size().height))
         
         // the pretty graphical lightning, "deadline", that gives the game it's name
-        self.position = CGPoint(x: 1, y: scene.frame.minY + 20)
+        self.position = CGPoint(x: 0, y: scene.frame.minY + 20)
         self.zPosition = -1
         
         let spark = SKAction.animate(with: [texture1, texture2, texture3, texture4, texture5, texture6, texture7, texture8], timePerFrame:0.04)
